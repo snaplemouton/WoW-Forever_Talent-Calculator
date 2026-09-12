@@ -326,7 +326,7 @@ kbd {
   </div>
   <div class="modalbody">
     <p class="help">
-      Edit or paste the JSON dataset below. On GitHub Pages, Apply Locally stores the dataset only in this browser. Use Download JSON if you want to commit the updated dataset back to GitHub. Rows and columns are 1-based and talent ids must be globally unique.
+      Edit or paste the JSON dataset below. Multi-rank talents may use a <code>ranks</code> array with one description per rank; <code>max_rank</code> is then optional. The old <code>max_rank</code> + <code>description</code> format remains supported. On GitHub Pages, Apply Locally stores the dataset only in this browser. Use Download JSON to commit changes back to GitHub.
     </p>
     <div class="toolbar" style="margin-bottom:8px">
       <button id="formatDataBtn">Format JSON</button>
@@ -355,7 +355,7 @@ kbd {
 </dialog>
 
 <script>
-const APP_VERSION = "1.1.0";
+const APP_VERSION = "1.2.0";
 let DATA = null;
 let currentClass = null;
 let build = {};
@@ -438,24 +438,88 @@ function requiredLevel() {
   return first + Math.ceil(spent / ppl) - 1;
 }
 
+function rankEntries(t) {
+  if (!Array.isArray(t.ranks)) {
+    return [];
+  }
+
+  return t.ranks.map((entry, index) => {
+    if (typeof entry === "string") {
+      return {
+        rank: index + 1,
+        description: entry
+      };
+    }
+
+    if (entry && typeof entry === "object") {
+      return {
+        rank: Number(entry.rank || index + 1),
+        description: String(entry.description ?? "")
+      };
+    }
+
+    return {
+      rank: index + 1,
+      description: ""
+    };
+  });
+}
+
+function maxRankOf(t) {
+  const entries = rankEntries(t);
+
+  if (entries.length) {
+    return entries.length;
+  }
+
+  if (Array.isArray(t.description) && t.description.length) {
+    return t.description.length;
+  }
+
+  return Math.max(1, maxRankOf(t));
+}
+
 function descFor(t, rank) {
+  const targetRank = Math.max(
+    1,
+    Math.min(maxRankOf(t), Number(rank || 1))
+  );
+
+  const entries = rankEntries(t);
+  if (entries.length) {
+    const exact = entries.find(entry => entry.rank === targetRank);
+    if (exact && exact.description) {
+      return exact.description;
+    }
+
+    const fallback = entries[targetRank - 1];
+    if (fallback && fallback.description) {
+      return fallback.description;
+    }
+
+    return "No description entered for this rank.";
+  }
+
   const description = t.description ?? "";
+
   if (Array.isArray(description)) {
     if (!description.length) {
       return "No description entered yet.";
     }
+
     const index = Math.max(
       0,
-      Math.min(description.length - 1, (rank || 1) - 1)
+      Math.min(description.length - 1, targetRank - 1)
     );
     return description[index];
   }
+
   return description || "No description entered yet.";
 }
 
 function canAdd(t) {
   const rank = rankOf(t.id);
-  const maxRank = Number(t.max_rank || 1);
+  const maxRank = maxRankOf(t);
 
   if (rank >= maxRank) {
     return [false, "Talent is already maxed."];
@@ -479,7 +543,7 @@ function canAdd(t) {
     if (!prerequisite) {
       return [false, `Missing prerequisite data: ${t.requires}`];
     }
-    if (rankOf(prerequisite.id) < Number(prerequisite.max_rank || 1)) {
+    if (rankOf(prerequisite.id) < maxRankOf(prerequisite)) {
       return [false, `Requires ${prerequisite.name} at maximum rank.`];
     }
   }
@@ -498,7 +562,7 @@ function stateIsValid(nextClassBuild) {
 
     for (const t of allTalentsForClass()) {
       const rank = rankOf(t.id);
-      const maxRank = Number(t.max_rank || 1);
+      const maxRank = maxRankOf(t);
 
       if (rank < 0 || rank > maxRank) {
         return false;
@@ -517,7 +581,7 @@ function stateIsValid(nextClassBuild) {
         const prerequisite = findTalent(t.requires);
         if (
           !prerequisite ||
-          rankOf(prerequisite.id) < Number(prerequisite.max_rank || 1)
+          rankOf(prerequisite.id) < maxRankOf(prerequisite)
         ) {
           return false;
         }
@@ -551,7 +615,7 @@ function canRemove(t) {
 
 function addPoint(t, maxOut = false) {
   let changed = false;
-  const attempts = maxOut ? Number(t.max_rank || 1) : 1;
+  const attempts = maxOut ? maxRankOf(t) : 1;
 
   for (let i = 0; i < attempts; i++) {
     const [ok] = canAdd(t);
@@ -769,14 +833,32 @@ function escapeHtml(value) {
 
 function tooltipText(t) {
   const rank = rankOf(t.id);
-  const shownRank = Math.max(
-    1,
-    Math.min(Number(t.max_rank || 1), rank || 1)
-  );
+  const maxRank = maxRankOf(t);
   const [addOk, addWhy] = canAdd(t);
 
+  let body = "";
+
+  if (rank <= 0) {
+    body = `
+      <div class="tt-rank">Next rank: 1/${maxRank}</div>
+      <div>${escapeHtml(descFor(t, 1))}</div>
+    `;
+  } else {
+    body = `
+      <div class="tt-rank">Current rank: ${rank}/${maxRank}</div>
+      <div>${escapeHtml(descFor(t, rank))}</div>
+    `;
+
+    if (rank < maxRank) {
+      body += `
+        <div class="tt-rank" style="margin-top:10px">Next rank: ${rank + 1}/${maxRank}</div>
+        <div>${escapeHtml(descFor(t, rank + 1))}</div>
+      `;
+    }
+  }
+
   let lock = "";
-  if (!addOk && rank < Number(t.max_rank || 1)) {
+  if (!addOk && rank < maxRank) {
     lock = `<div class="tt-lock">${escapeHtml(addWhy)}</div>`;
   }
 
@@ -797,10 +879,7 @@ function tooltipText(t) {
 
   return `
     <h3>${escapeHtml(t.name)}</h3>
-    <div class="tt-rank">
-      Rank ${rank}/${Number(t.max_rank || 1)}
-    </div>
-    <div>${escapeHtml(descFor(t, shownRank))}</div>
+    ${body}
     ${prerequisiteText}
     ${lock}
     ${sourceText}
@@ -884,7 +963,7 @@ function renderTrees() {
     talents.forEach(rawTalent => {
       const t = {...rawTalent, treeIndex};
       const rank = rankOf(t.id);
-      const maxRank = Number(t.max_rank || 1);
+      const maxRank = maxRankOf(t);
       const [addOk] = canAdd(t);
 
       const button = document.createElement("button");
@@ -902,9 +981,13 @@ function renderTrees() {
 
       const searchable = [
         t.name || "",
-        Array.isArray(t.description)
-          ? t.description.join(" ")
-          : t.description || "",
+        Array.isArray(t.ranks)
+          ? rankEntries(t).map(entry => entry.description).join(" ")
+          : (
+              Array.isArray(t.description)
+                ? t.description.join(" ")
+                : t.description || ""
+            ),
         t.source || ""
       ].join(" ").toLowerCase();
 
@@ -1102,8 +1185,70 @@ function validateStaticDataset(object) {
           errors.push(`${talent.id}: col must be an integer >= 1.`);
         }
 
-        if (!Number.isInteger(talent.max_rank) || talent.max_rank < 1) {
-          errors.push(`${talent.id}: max_rank must be an integer >= 1.`);
+        const hasRanks = Array.isArray(talent.ranks) && talent.ranks.length > 0;
+        const hasDescriptionRanks =
+          Array.isArray(talent.description) && talent.description.length > 0;
+
+        if (
+          talent.max_rank !== undefined &&
+          (!Number.isInteger(talent.max_rank) || talent.max_rank < 1)
+        ) {
+          errors.push(`${talent.id}: max_rank must be an integer >= 1 when present.`);
+        }
+
+        if (talent.ranks !== undefined) {
+          if (!Array.isArray(talent.ranks) || talent.ranks.length < 1) {
+            errors.push(`${talent.id}: ranks must be a non-empty array when present.`);
+          } else {
+            talent.ranks.forEach((entry, index) => {
+              if (
+                typeof entry !== "string" &&
+                (!entry || typeof entry !== "object")
+              ) {
+                errors.push(`${talent.id}: ranks[${index}] must be a string or object.`);
+                return;
+              }
+
+              if (entry && typeof entry === "object") {
+                if (
+                  entry.rank !== undefined &&
+                  (!Number.isInteger(entry.rank) || entry.rank < 1)
+                ) {
+                  errors.push(
+                    `${talent.id}: ranks[${index}].rank must be an integer >= 1.`
+                  );
+                }
+
+                if (
+                  entry.description !== undefined &&
+                  typeof entry.description !== "string"
+                ) {
+                  errors.push(
+                    `${talent.id}: ranks[${index}].description must be a string.`
+                  );
+                }
+              }
+            });
+
+            if (
+              talent.max_rank !== undefined &&
+              talent.max_rank !== talent.ranks.length
+            ) {
+              errors.push(
+                `${talent.id}: max_rank (${talent.max_rank}) does not match ranks length (${talent.ranks.length}).`
+              );
+            }
+          }
+        }
+
+        if (
+          talent.max_rank === undefined &&
+          !hasRanks &&
+          !hasDescriptionRanks
+        ) {
+          errors.push(
+            `${talent.id}: provide max_rank, a ranks array, or a description array.`
+          );
         }
 
         const pos = `${talent.row}:${talent.col}`;
