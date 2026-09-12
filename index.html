@@ -1,0 +1,1295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WoW: Forever Talent Calculator</title>
+<meta name="description" content="World of Warcraft: Forever talent calculator">
+<style>
+:root {
+  --bg:#0d1117;
+  --panel:#161b22;
+  --panel2:#21262d;
+  --border:#30363d;
+  --text:#e6edf3;
+  --muted:#8b949e;
+  --gold:#d6b35a;
+  --good:#3fb950;
+  --warn:#d29922;
+  --bad:#f85149;
+  --blue:#58a6ff;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:linear-gradient(180deg,#080b10,#0d1117 25%);
+  color:var(--text);
+  font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+}
+button,input,select,textarea { font:inherit; }
+button { cursor:pointer; }
+header {
+  position:sticky;
+  top:0;
+  z-index:20;
+  padding:12px 16px;
+  background:rgba(13,17,23,.96);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(8px);
+}
+.toprow,.toolbar,.stats {
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.toprow { justify-content:space-between; }
+h1 { margin:0; font-size:20px; color:var(--gold); }
+.subtitle { color:var(--muted); font-size:12px; }
+button,select,input[type="number"],input[type="search"] {
+  border:1px solid var(--border);
+  border-radius:7px;
+  color:var(--text);
+  background:var(--panel2);
+  padding:7px 10px;
+}
+button:hover { border-color:#6e7681; }
+button.primary {
+  border-color:#6b581f;
+  background:#3b3114;
+  color:#ffe08a;
+}
+button.danger {
+  border-color:#6e2d2d;
+  background:#351919;
+}
+button:disabled { opacity:.45; cursor:not-allowed; }
+main { max-width:1500px; margin:0 auto; padding:16px; }
+.notice {
+  border:1px solid #6b581f;
+  background:#241f10;
+  color:#e8d89b;
+  padding:10px 12px;
+  border-radius:8px;
+  margin-bottom:12px;
+}
+.classbar {
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  margin:12px 0;
+}
+.classbtn.active {
+  border-color:var(--gold);
+  color:#ffe08a;
+  background:#352f1b;
+}
+.stats {
+  background:var(--panel);
+  border:1px solid var(--border);
+  padding:10px;
+  border-radius:8px;
+  margin-bottom:12px;
+}
+.pill {
+  padding:4px 8px;
+  border-radius:99px;
+  background:var(--panel2);
+  border:1px solid var(--border);
+  white-space:nowrap;
+}
+.pill strong { color:#fff; }
+.trees {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(300px,1fr));
+  gap:12px;
+}
+.tree {
+  border:1px solid var(--border);
+  background:linear-gradient(180deg,#171c23,#11151b);
+  border-radius:10px;
+  overflow:hidden;
+  min-height:560px;
+}
+.treehead {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 12px;
+  border-bottom:1px solid var(--border);
+  background:#1b2027;
+}
+.treehead h2 { margin:0; font-size:16px; color:#f0d78d; }
+.grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-auto-rows:98px;
+  gap:8px;
+  padding:12px;
+}
+.empty {
+  color:var(--muted);
+  text-align:center;
+  padding:80px 20px;
+}
+.talent {
+  position:relative;
+  min-width:0;
+  border:1px solid #444c56;
+  background:#1f252d;
+  border-radius:8px;
+  padding:8px 7px 22px;
+  color:var(--text);
+  text-align:left;
+  overflow:hidden;
+  user-select:none;
+}
+.talent:hover { border-color:#8c959f; }
+.talent.can-add {
+  box-shadow:inset 0 0 0 1px rgba(63,185,80,.45);
+}
+.talent.maxed {
+  border-color:#a98b39;
+  background:#292413;
+}
+.talent.locked {
+  opacity:.45;
+  filter:grayscale(.35);
+}
+.talent.filtered { display:none; }
+.talent-name {
+  font-weight:700;
+  line-height:1.2;
+  display:block;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.rank {
+  position:absolute;
+  right:6px;
+  bottom:4px;
+  font-weight:800;
+  color:#fff;
+  background:#05070a;
+  border:1px solid #555d66;
+  border-radius:4px;
+  padding:0 5px;
+  font-size:12px;
+}
+.badge {
+  position:absolute;
+  left:6px;
+  bottom:5px;
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.4px;
+}
+.badge.confirmed { color:#70d77a; }
+.badge.reported { color:#e8c35d; }
+.badge.unverified { color:#ef7d75; }
+.badge.classic { color:#6fb2ff; }
+.tooltip {
+  position:fixed;
+  display:none;
+  z-index:100;
+  width:min(420px,calc(100vw - 24px));
+  background:#070a0f;
+  border:1px solid #59636e;
+  border-radius:8px;
+  padding:10px 12px;
+  box-shadow:0 10px 35px rgba(0,0,0,.5);
+  pointer-events:none;
+}
+.tooltip h3 { margin:0 0 4px; color:#fff; }
+.tooltip .tt-rank { color:#d6b35a; margin-bottom:6px; }
+.tooltip .tt-lock { color:#ff8b84; margin-top:6px; }
+.tooltip .tt-src { color:#8b949e; margin-top:8px; font-size:12px; }
+.research {
+  margin-top:16px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:var(--panel);
+  padding:12px;
+}
+.research h2 { margin:0 0 8px; font-size:16px; }
+.fragment {
+  padding:8px 0;
+  border-top:1px solid var(--border);
+}
+.fragment:first-of-type { border-top:0; }
+.fragment strong { color:#f0d78d; }
+.fragment .source { color:var(--muted); font-size:12px; }
+.search { min-width:220px; }
+dialog {
+  width:min(1000px,95vw);
+  height:min(820px,90vh);
+  background:#0d1117;
+  color:var(--text);
+  border:1px solid #59636e;
+  border-radius:10px;
+  padding:0;
+}
+dialog::backdrop { background:rgba(0,0,0,.7); }
+.modalhead {
+  position:sticky;
+  top:0;
+  z-index:2;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 12px;
+  background:#161b22;
+  border-bottom:1px solid var(--border);
+}
+.modalbody { padding:12px; }
+textarea {
+  width:100%;
+  min-height:580px;
+  resize:vertical;
+  background:#06080c;
+  color:#d7e1ea;
+  border:1px solid var(--border);
+  border-radius:7px;
+  padding:10px;
+  font:12px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace;
+}
+.statusmsg { margin-top:8px; white-space:pre-wrap; }
+.good { color:#70d77a; }
+.bad { color:#ff8b84; }
+.help { color:var(--muted); font-size:12px; }
+kbd {
+  border:1px solid #555d66;
+  border-bottom-width:2px;
+  border-radius:4px;
+  padding:1px 5px;
+  background:#20262e;
+}
+@media(max-width:1050px) {
+  .trees { grid-template-columns:1fr; }
+  .tree { min-height:0; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="toprow">
+    <div>
+      <h1 id="title">WoW: Forever Talent Calculator</h1>
+      <div class="subtitle" id="datasetMeta"></div>
+    </div>
+    <div class="toolbar">
+      <input id="search" class="search" type="search" placeholder="Search talents…">
+      <button id="exportBtn">Copy build code</button>
+      <button id="importBtn">Import build</button>
+      <button id="dataBtn">Data Editor</button>
+      <button id="resetBtn" class="danger">Reset class</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div id="datasetNotice" class="notice"></div>
+  <div class="help" style="margin:-4px 0 12px">Static GitHub Pages build. Talent data loads from <code>forever_talents.json</code>.</div>
+  <div id="classbar" class="classbar"></div>
+
+  <div class="stats">
+    <label>Level
+      <input id="levelInput" type="number" min="10" max="60" value="60" style="width:74px">
+    </label>
+    <span class="pill">Available: <strong id="availablePoints">51</strong></span>
+    <span class="pill">Spent: <strong id="spentPoints">0</strong></span>
+    <span class="pill">Remaining: <strong id="remainingPoints">51</strong></span>
+    <span class="pill">Required level: <strong id="requiredLevel">10</strong></span>
+    <span class="help">
+      Left-click +1 · Right-click −1 · <kbd>Shift</kbd>+click fills a talent.
+    </span>
+  </div>
+
+  <div id="trees" class="trees"></div>
+
+  <section class="research">
+    <h2>Current Forever research fragments</h2>
+    <div class="help">
+      These notes are deliberately separate from the clickable trees until their
+      exact node position, rank count and prerequisite structure are verified.
+    </div>
+    <div id="fragments"></div>
+  </section>
+</main>
+
+<div id="tooltip" class="tooltip"></div>
+
+<dialog id="dataDialog">
+  <div class="modalhead">
+    <strong>Forever Talent Dataset Editor</strong>
+    <button id="closeDataBtn">Close</button>
+  </div>
+  <div class="modalbody">
+    <p class="help">
+      Edit or paste the JSON dataset below. On GitHub Pages, Apply Locally stores the dataset only in this browser. Use Download JSON if you want to commit the updated dataset back to GitHub. Rows and columns are 1-based and talent ids must be globally unique.
+    </p>
+    <div class="toolbar" style="margin-bottom:8px">
+      <button id="formatDataBtn">Format JSON</button>
+      <button id="downloadDataBtn">Download JSON</button>
+      <button id="saveDataBtn" class="primary">Apply Locally</button>
+      <button id="resetDataBtn">Reload Repository JSON</button>
+    </div>
+    <textarea id="dataText" spellcheck="false"></textarea>
+    <div id="dataStatus" class="statusmsg"></div>
+  </div>
+</dialog>
+
+<dialog id="importDialog">
+  <div class="modalhead">
+    <strong>Import build code</strong>
+    <button id="closeImportBtn">Close</button>
+  </div>
+  <div class="modalbody">
+    <p class="help">Paste a build code generated by this calculator.</p>
+    <textarea id="importText" style="min-height:160px"></textarea>
+    <div class="toolbar">
+      <button id="doImportBtn" class="primary">Import</button>
+    </div>
+    <div id="importStatus" class="statusmsg"></div>
+  </div>
+</dialog>
+
+<script>
+const APP_VERSION = "1.1.0";
+let DATA = null;
+let currentClass = null;
+let build = {};
+let level = 60;
+const tooltip = document.getElementById("tooltip");
+const qs = id => document.getElementById(id);
+
+function meta() {
+  return DATA.meta || {};
+}
+
+function classObj() {
+  return DATA.classes[currentClass];
+}
+
+function trees() {
+  return classObj()?.trees || [];
+}
+
+function availablePoints() {
+  const m = meta();
+  const first = Number(m.first_talent_level ?? 10);
+  const ppl = Number(m.points_per_level ?? 1);
+  const max = Number(m.max_total_points ?? 51);
+  return Math.max(0, Math.min(max, (level - first + 1) * ppl));
+}
+
+function classBuild() {
+  if (!build[currentClass]) {
+    build[currentClass] = {};
+  }
+  return build[currentClass];
+}
+
+function rankOf(id) {
+  return Number(classBuild()[id] || 0);
+}
+
+function allTalentsForClass() {
+  return trees().flatMap((tree, treeIndex) =>
+    (tree.talents || []).map(t => ({...t, treeIndex}))
+  );
+}
+
+function treeTalents(treeIndex) {
+  return (trees()[treeIndex]?.talents || []).map(
+    t => ({...t, treeIndex})
+  );
+}
+
+function findTalent(id) {
+  return allTalentsForClass().find(t => t.id === id) || null;
+}
+
+function pointsInTree(treeIndex) {
+  return treeTalents(treeIndex).reduce(
+    (sum, t) => sum + rankOf(t.id), 0
+  );
+}
+
+function pointsAboveRow(treeIndex, row) {
+  return treeTalents(treeIndex)
+    .filter(t => Number(t.row) < Number(row))
+    .reduce((sum, t) => sum + rankOf(t.id), 0);
+}
+
+function totalSpent() {
+  return allTalentsForClass().reduce(
+    (sum, t) => sum + rankOf(t.id), 0
+  );
+}
+
+function requiredLevel() {
+  const first = Number(meta().first_talent_level ?? 10);
+  const ppl = Math.max(1, Number(meta().points_per_level ?? 1));
+  const spent = totalSpent();
+  if (spent <= 0) {
+    return first;
+  }
+  return first + Math.ceil(spent / ppl) - 1;
+}
+
+function descFor(t, rank) {
+  const description = t.description ?? "";
+  if (Array.isArray(description)) {
+    if (!description.length) {
+      return "No description entered yet.";
+    }
+    const index = Math.max(
+      0,
+      Math.min(description.length - 1, (rank || 1) - 1)
+    );
+    return description[index];
+  }
+  return description || "No description entered yet.";
+}
+
+function canAdd(t) {
+  const rank = rankOf(t.id);
+  const maxRank = Number(t.max_rank || 1);
+
+  if (rank >= maxRank) {
+    return [false, "Talent is already maxed."];
+  }
+
+  if (totalSpent() >= availablePoints()) {
+    return [false, "No talent points remain at this level."];
+  }
+
+  const neededEarlier = (Number(t.row) - 1) * 5;
+  const earlier = pointsAboveRow(t.treeIndex, t.row);
+  if (earlier < neededEarlier) {
+    return [
+      false,
+      `Requires ${neededEarlier} points in earlier rows of this tree (${earlier}/${neededEarlier}).`
+    ];
+  }
+
+  if (t.requires) {
+    const prerequisite = findTalent(t.requires);
+    if (!prerequisite) {
+      return [false, `Missing prerequisite data: ${t.requires}`];
+    }
+    if (rankOf(prerequisite.id) < Number(prerequisite.max_rank || 1)) {
+      return [false, `Requires ${prerequisite.name} at maximum rank.`];
+    }
+  }
+
+  return [true, ""];
+}
+
+function stateIsValid(nextClassBuild) {
+  const old = build[currentClass];
+  build[currentClass] = nextClassBuild;
+
+  try {
+    if (totalSpent() > availablePoints()) {
+      return false;
+    }
+
+    for (const t of allTalentsForClass()) {
+      const rank = rankOf(t.id);
+      const maxRank = Number(t.max_rank || 1);
+
+      if (rank < 0 || rank > maxRank) {
+        return false;
+      }
+
+      if (rank <= 0) {
+        continue;
+      }
+
+      const neededEarlier = (Number(t.row) - 1) * 5;
+      if (pointsAboveRow(t.treeIndex, t.row) < neededEarlier) {
+        return false;
+      }
+
+      if (t.requires) {
+        const prerequisite = findTalent(t.requires);
+        if (
+          !prerequisite ||
+          rankOf(prerequisite.id) < Number(prerequisite.max_rank || 1)
+        ) {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  } finally {
+    build[currentClass] = old;
+  }
+}
+
+function canRemove(t) {
+  const rank = rankOf(t.id);
+
+  if (rank <= 0) {
+    return [false, "No points to remove."];
+  }
+
+  const next = {...classBuild(), [t.id]: rank - 1};
+
+  if (!stateIsValid(next)) {
+    return [
+      false,
+      "Removing this point would invalidate a prerequisite or tier requirement."
+    ];
+  }
+
+  return [true, ""];
+}
+
+function addPoint(t, maxOut = false) {
+  let changed = false;
+  const attempts = maxOut ? Number(t.max_rank || 1) : 1;
+
+  for (let i = 0; i < attempts; i++) {
+    const [ok] = canAdd(t);
+    if (!ok) {
+      break;
+    }
+    classBuild()[t.id] = rankOf(t.id) + 1;
+    changed = true;
+  }
+
+  if (changed) {
+    persist();
+    render();
+  }
+}
+
+function removePoint(t) {
+  const [ok] = canRemove(t);
+  if (!ok) {
+    return;
+  }
+
+  classBuild()[t.id] = rankOf(t.id) - 1;
+  persist();
+  render();
+}
+
+function resetClass() {
+  if (!confirm(`Reset all ${currentClass} talents?`)) {
+    return;
+  }
+  build[currentClass] = {};
+  persist();
+  render();
+}
+
+function resetTree(treeIndex) {
+  const next = {...classBuild()};
+  for (const t of treeTalents(treeIndex)) {
+    next[t.id] = 0;
+  }
+
+  if (!stateIsValid(next)) {
+    alert(
+      "That tree cannot be reset because another currently selected talent " +
+      "would lose a prerequisite."
+    );
+    return;
+  }
+
+  build[currentClass] = next;
+  persist();
+  render();
+}
+
+function setLevel(newLevel) {
+  const min = Number(meta().first_talent_level ?? 10);
+  const max = Number(meta().max_level ?? 60);
+  const candidate = Math.max(
+    min,
+    Math.min(max, Number(newLevel) || min)
+  );
+
+  const oldLevel = level;
+  level = candidate;
+
+  if (!stateIsValid({...classBuild()})) {
+    level = oldLevel;
+    alert(
+      "That level is too low for the points currently spent. " +
+      "Remove points first."
+    );
+  }
+
+  persist();
+  render();
+}
+
+function saveKey() {
+  const version = meta().dataset_version || "unknown";
+  return `wow-forever-talent-calculator:${version}`;
+}
+
+function persist() {
+  localStorage.setItem(
+    saveKey(),
+    JSON.stringify({build, currentClass, level})
+  );
+  updateHash();
+}
+
+function restore() {
+  try {
+    const raw = localStorage.getItem(saveKey());
+    if (!raw) {
+      return;
+    }
+
+    const saved = JSON.parse(raw);
+
+    if (saved.build && typeof saved.build === "object") {
+      build = saved.build;
+    }
+    if (saved.currentClass && DATA.classes[saved.currentClass]) {
+      currentClass = saved.currentClass;
+    }
+    if (saved.level) {
+      level = Number(saved.level);
+    }
+  } catch (_) {
+    // Ignore damaged local storage.
+  }
+}
+
+function toBase64Url(text) {
+  const bytes = new TextEncoder().encode(text);
+  let binary = "";
+  bytes.forEach(byte => {
+    binary += String.fromCharCode(byte);
+  });
+
+  return btoa(binary)
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/g, "");
+}
+
+function fromBase64Url(value) {
+  let padded = value.replace(/-/g, "+").replace(/_/g, "/");
+  while (padded.length % 4) {
+    padded += "=";
+  }
+
+  const binary = atob(padded);
+  const bytes = Uint8Array.from(
+    binary,
+    character => character.charCodeAt(0)
+  );
+  return new TextDecoder().decode(bytes);
+}
+
+function buildCode() {
+  const payload = {
+    v: 1,
+    dataset: meta().dataset_version || "",
+    class: currentClass,
+    level,
+    ranks: classBuild()
+  };
+  return toBase64Url(JSON.stringify(payload));
+}
+
+function importBuildCode(code, quiet = false) {
+  const previousClass = currentClass;
+  const previousLevel = level;
+  const previousBuild = JSON.parse(JSON.stringify(build));
+
+  try {
+    const payload = JSON.parse(fromBase64Url(code.trim()));
+
+    if (!payload.class || !DATA.classes[payload.class]) {
+      throw new Error("Unknown class in build code.");
+    }
+
+    currentClass = payload.class;
+    level = Number(payload.level || meta().max_level || 60);
+    build[currentClass] = payload.ranks || {};
+
+    if (!stateIsValid({...classBuild()})) {
+      throw new Error(
+        "Build violates this dataset's point, tier or prerequisite rules."
+      );
+    }
+
+    persist();
+    render();
+    return [true, quiet ? "" : "Build imported."];
+  } catch (error) {
+    currentClass = previousClass;
+    level = previousLevel;
+    build = previousBuild;
+    render();
+    return [false, String(error.message || error)];
+  }
+}
+
+function updateHash() {
+  const hash = "#b=" + buildCode();
+  if (location.hash !== hash) {
+    history.replaceState(null, "", hash);
+  }
+}
+
+function tryHashImport() {
+  if (!location.hash.startsWith("#b=")) {
+    return;
+  }
+
+  const code = location.hash.slice(3);
+  importBuildCode(code, true);
+}
+
+function escapeHtml(value) {
+  return String(value ?? "").replace(
+    /[&<>"']/g,
+    character => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      "\"": "&quot;",
+      "'": "&#039;"
+    })[character]
+  );
+}
+
+function tooltipText(t) {
+  const rank = rankOf(t.id);
+  const shownRank = Math.max(
+    1,
+    Math.min(Number(t.max_rank || 1), rank || 1)
+  );
+  const [addOk, addWhy] = canAdd(t);
+
+  let lock = "";
+  if (!addOk && rank < Number(t.max_rank || 1)) {
+    lock = `<div class="tt-lock">${escapeHtml(addWhy)}</div>`;
+  }
+
+  let prerequisiteText = "";
+  if (t.requires) {
+    const prerequisite = findTalent(t.requires);
+    prerequisiteText = `<div class="tt-lock">Prerequisite: ${
+      escapeHtml(prerequisite?.name || t.requires)
+    }</div>`;
+  }
+
+  let sourceText = "";
+  if (t.source) {
+    sourceText = `<div class="tt-src">Source: ${
+      escapeHtml(t.source)
+    } · ${escapeHtml(t.confidence || "confirmed")}</div>`;
+  }
+
+  return `
+    <h3>${escapeHtml(t.name)}</h3>
+    <div class="tt-rank">
+      Rank ${rank}/${Number(t.max_rank || 1)}
+    </div>
+    <div>${escapeHtml(descFor(t, shownRank))}</div>
+    ${prerequisiteText}
+    ${lock}
+    ${sourceText}
+  `;
+}
+
+function positionTooltip(event) {
+  const margin = 14;
+  const rect = tooltip.getBoundingClientRect();
+  let x = event.clientX + 16;
+  let y = event.clientY + 16;
+
+  if (x + rect.width + margin > innerWidth) {
+    x = event.clientX - rect.width - 16;
+  }
+  if (y + rect.height + margin > innerHeight) {
+    y = innerHeight - rect.height - margin;
+  }
+
+  tooltip.style.left = Math.max(margin, x) + "px";
+  tooltip.style.top = Math.max(margin, y) + "px";
+}
+
+function renderClassBar() {
+  const bar = qs("classbar");
+  bar.innerHTML = "";
+
+  Object.keys(DATA.classes).forEach(className => {
+    const button = document.createElement("button");
+    button.className =
+      "classbtn" + (className === currentClass ? " active" : "");
+    button.textContent = className;
+    button.onclick = () => {
+      currentClass = className;
+      persist();
+      render();
+    };
+    bar.appendChild(button);
+  });
+}
+
+function renderTrees() {
+  const wrapper = qs("trees");
+  wrapper.innerHTML = "";
+  const search = qs("search").value.trim().toLowerCase();
+
+  trees().forEach((tree, treeIndex) => {
+    const panel = document.createElement("section");
+    panel.className = "tree";
+
+    const head = document.createElement("div");
+    head.className = "treehead";
+
+    const heading = document.createElement("h2");
+    heading.textContent =
+      `${tree.name} (${pointsInTree(treeIndex)})`;
+
+    const reset = document.createElement("button");
+    reset.textContent = "Reset tree";
+    reset.onclick = () => resetTree(treeIndex);
+
+    head.append(heading, reset);
+    panel.appendChild(head);
+
+    const talents = tree.talents || [];
+
+    if (!talents.length) {
+      const empty = document.createElement("div");
+      empty.className = "empty";
+      empty.innerHTML =
+        "No verified Forever nodes entered yet.<br>" +
+        "<span class=\"help\">Use <b>Data Editor</b> to add this tree.</span>";
+      panel.appendChild(empty);
+      wrapper.appendChild(panel);
+      return;
+    }
+
+    const grid = document.createElement("div");
+    grid.className = "grid";
+
+    talents.forEach(rawTalent => {
+      const t = {...rawTalent, treeIndex};
+      const rank = rankOf(t.id);
+      const maxRank = Number(t.max_rank || 1);
+      const [addOk] = canAdd(t);
+
+      const button = document.createElement("button");
+      button.className = "talent";
+
+      if (addOk) {
+        button.classList.add("can-add");
+      }
+      if (rank >= maxRank) {
+        button.classList.add("maxed");
+      }
+      if (!addOk && rank === 0) {
+        button.classList.add("locked");
+      }
+
+      const searchable = [
+        t.name || "",
+        Array.isArray(t.description)
+          ? t.description.join(" ")
+          : t.description || "",
+        t.source || ""
+      ].join(" ").toLowerCase();
+
+      if (search && !searchable.includes(search)) {
+        button.classList.add("filtered");
+      }
+
+      button.style.gridRow = String(t.row);
+      button.style.gridColumn = String(t.col);
+
+      button.innerHTML = `
+        <span class="talent-name">${escapeHtml(t.name)}</span>
+        <span class="badge ${escapeHtml(t.confidence || "confirmed")}">
+          ${escapeHtml(t.confidence || "confirmed")}
+        </span>
+        <span class="rank">${rank}/${maxRank}</span>
+      `;
+
+      button.onclick = event => {
+        event.preventDefault();
+        addPoint(t, event.shiftKey);
+      };
+
+      button.oncontextmenu = event => {
+        event.preventDefault();
+        removePoint(t);
+      };
+
+      button.onmouseenter = event => {
+        tooltip.innerHTML = tooltipText(t);
+        tooltip.style.display = "block";
+        positionTooltip(event);
+      };
+
+      button.onmousemove = positionTooltip;
+      button.onmouseleave = () => {
+        tooltip.style.display = "none";
+      };
+
+      grid.appendChild(button);
+    });
+
+    panel.appendChild(grid);
+    wrapper.appendChild(panel);
+  });
+}
+
+function renderFragments() {
+  const container = qs("fragments");
+  const fragments = DATA.known_fragments || [];
+
+  container.innerHTML = fragments.map(fragment => `
+    <div class="fragment">
+      <strong>${escapeHtml(fragment.class || "General")}</strong>
+      <span
+        class="badge ${escapeHtml(fragment.status || "reported")}"
+        style="position:static;margin-left:6px"
+      >${escapeHtml(fragment.status || "reported")}</span>
+      <div>${escapeHtml(fragment.text || "")}</div>
+      <div class="source">${escapeHtml(fragment.source || "")}</div>
+    </div>
+  `).join("");
+}
+
+function renderStats() {
+  qs("levelInput").min = String(
+    meta().first_talent_level ?? 10
+  );
+  qs("levelInput").max = String(meta().max_level ?? 60);
+  qs("levelInput").value = String(level);
+  qs("availablePoints").textContent = String(availablePoints());
+  qs("spentPoints").textContent = String(totalSpent());
+  qs("remainingPoints").textContent = String(
+    availablePoints() - totalSpent()
+  );
+  qs("requiredLevel").textContent = String(requiredLevel());
+}
+
+function render() {
+  qs("title").textContent =
+    `${meta().title || "WoW: Forever"} Talent Calculator`;
+
+  qs("datasetMeta").textContent = [
+    meta().dataset_name || "Dataset",
+    meta().dataset_version || "unknown version",
+    `calculator ${APP_VERSION}`
+  ].join(" · ");
+
+  qs("datasetNotice").textContent =
+    meta().notes || "Dataset loaded.";
+
+  renderClassBar();
+  renderStats();
+  renderTrees();
+  renderFragments();
+}
+
+const LOCAL_DATA_KEY = "wow-forever-talent-calculator:dataset-override";
+
+async function loadRepositoryData() {
+  const response = await fetch("forever_talents.json", {cache: "no-store"});
+
+  if (!response.ok) {
+    throw new Error(
+      `Failed to load forever_talents.json: HTTP ${response.status}`
+    );
+  }
+
+  return await response.json();
+}
+
+async function loadData() {
+  let repositoryData = await loadRepositoryData();
+  DATA = repositoryData;
+
+  try {
+    const localOverride = localStorage.getItem(LOCAL_DATA_KEY);
+    if (localOverride) {
+      const parsed = JSON.parse(localOverride);
+      if (parsed && parsed.classes && parsed.meta) {
+        DATA = parsed;
+      }
+    }
+  } catch (_) {
+    localStorage.removeItem(LOCAL_DATA_KEY);
+    DATA = repositoryData;
+  }
+
+  currentClass = Object.keys(DATA.classes)[0];
+  level = Number(meta().max_level || 60);
+
+  restore();
+  tryHashImport();
+  render();
+}
+
+function validateStaticDataset(object) {
+  const errors = [];
+
+  if (!object || typeof object !== "object" || Array.isArray(object)) {
+    return ["Top-level JSON value must be an object."];
+  }
+
+  if (!object.meta || typeof object.meta !== "object") {
+    errors.push("Missing or invalid meta object.");
+  }
+
+  if (!object.classes || typeof object.classes !== "object") {
+    errors.push("Missing or invalid classes object.");
+    return errors;
+  }
+
+  const seenIds = new Set();
+  const prerequisites = [];
+
+  for (const [className, classObject] of Object.entries(object.classes)) {
+    if (!classObject || !Array.isArray(classObject.trees)) {
+      errors.push(`${className}: trees must be an array.`);
+      continue;
+    }
+
+    for (const tree of classObject.trees) {
+      if (!tree || typeof tree.name !== "string" || !Array.isArray(tree.talents)) {
+        errors.push(`${className}: invalid tree entry.`);
+        continue;
+      }
+
+      const occupied = new Set();
+
+      for (const talent of tree.talents) {
+        if (!talent || typeof talent !== "object") {
+          errors.push(`${className}/${tree.name}: invalid talent entry.`);
+          continue;
+        }
+
+        if (!talent.id || typeof talent.id !== "string") {
+          errors.push(`${className}/${tree.name}: talent missing id.`);
+          continue;
+        }
+
+        if (seenIds.has(talent.id)) {
+          errors.push(`Duplicate talent id: ${talent.id}`);
+        }
+        seenIds.add(talent.id);
+
+        if (!talent.name || typeof talent.name !== "string") {
+          errors.push(`${talent.id}: missing name.`);
+        }
+
+        if (!Number.isInteger(talent.row) || talent.row < 1) {
+          errors.push(`${talent.id}: row must be an integer >= 1.`);
+        }
+
+        if (!Number.isInteger(talent.col) || talent.col < 1) {
+          errors.push(`${talent.id}: col must be an integer >= 1.`);
+        }
+
+        if (!Number.isInteger(talent.max_rank) || talent.max_rank < 1) {
+          errors.push(`${talent.id}: max_rank must be an integer >= 1.`);
+        }
+
+        const pos = `${talent.row}:${talent.col}`;
+        if (occupied.has(pos)) {
+          errors.push(`${className}/${tree.name}: duplicate node position ${pos}.`);
+        }
+        occupied.add(pos);
+
+        if (talent.requires) {
+          prerequisites.push([talent.id, talent.requires]);
+        }
+      }
+    }
+  }
+
+  for (const [talentId, requiredId] of prerequisites) {
+    if (!seenIds.has(requiredId)) {
+      errors.push(`${talentId}: requires unknown talent id ${requiredId}.`);
+    }
+  }
+
+  return errors;
+}
+
+async function saveDataset() {
+  const status = qs("dataStatus");
+
+  try {
+    const object = JSON.parse(qs("dataText").value);
+    const errors = validateStaticDataset(object);
+
+    if (errors.length) {
+      throw new Error(errors.join("\n"));
+    }
+
+    DATA = object;
+    localStorage.setItem(
+      LOCAL_DATA_KEY,
+      JSON.stringify(DATA)
+    );
+
+    if (!DATA.classes[currentClass]) {
+      currentClass = Object.keys(DATA.classes)[0];
+    }
+
+    build = {};
+    level = Number(meta().max_level || 60);
+    render();
+    qs("dataText").value = JSON.stringify(DATA, null, 2);
+
+    status.className = "statusmsg good";
+    status.textContent =
+      "Applied locally in this browser. Download the JSON and commit it to GitHub "
+      + "if you want everyone to see the change.";
+  } catch (error) {
+    status.className = "statusmsg bad";
+    status.textContent = String(error.message || error);
+  }
+}
+
+async function resetDatasetToRepository() {
+  const status = qs("dataStatus");
+
+  try {
+    localStorage.removeItem(LOCAL_DATA_KEY);
+    DATA = await loadRepositoryData();
+
+    if (!DATA.classes[currentClass]) {
+      currentClass = Object.keys(DATA.classes)[0];
+    }
+
+    build = {};
+    level = Number(meta().max_level || 60);
+    render();
+    qs("dataText").value = JSON.stringify(DATA, null, 2);
+
+    status.className = "statusmsg good";
+    status.textContent = "Reloaded forever_talents.json from the repository.";
+  } catch (error) {
+    status.className = "statusmsg bad";
+    status.textContent = String(error.message || error);
+  }
+}
+
+function downloadDataset() {
+  const blob = new Blob(
+    [qs("dataText").value],
+    {type: "application/json"}
+  );
+  const anchor = document.createElement("a");
+  anchor.href = URL.createObjectURL(blob);
+  anchor.download =
+    `wow_forever_talents_${meta().dataset_version || "dataset"}.json`;
+  anchor.click();
+
+  setTimeout(() => {
+    URL.revokeObjectURL(anchor.href);
+  }, 1000);
+}
+
+qs("levelInput").onchange = event => {
+  setLevel(event.target.value);
+};
+
+qs("search").oninput = renderTrees;
+qs("resetBtn").onclick = resetClass;
+
+qs("exportBtn").onclick = async () => {
+  const code = buildCode();
+
+  try {
+    await navigator.clipboard.writeText(code);
+    const oldText = qs("exportBtn").textContent;
+    qs("exportBtn").textContent = "Copied!";
+
+    setTimeout(() => {
+      qs("exportBtn").textContent = oldText;
+    }, 1200);
+  } catch (_) {
+    prompt("Copy build code:", code);
+  }
+};
+
+qs("importBtn").onclick = () => {
+  qs("importText").value = "";
+  qs("importStatus").textContent = "";
+  qs("importDialog").showModal();
+};
+
+qs("closeImportBtn").onclick = () => {
+  qs("importDialog").close();
+};
+
+qs("doImportBtn").onclick = () => {
+  const [ok, message] = importBuildCode(
+    qs("importText").value
+  );
+
+  qs("importStatus").className =
+    "statusmsg " + (ok ? "good" : "bad");
+  qs("importStatus").textContent = message;
+
+  if (ok) {
+    setTimeout(() => {
+      qs("importDialog").close();
+    }, 500);
+  }
+};
+
+qs("dataBtn").onclick = () => {
+  qs("dataText").value = JSON.stringify(DATA, null, 2);
+  qs("dataStatus").textContent = "";
+  qs("dataDialog").showModal();
+};
+
+qs("closeDataBtn").onclick = () => {
+  qs("dataDialog").close();
+};
+
+qs("formatDataBtn").onclick = () => {
+  try {
+    qs("dataText").value = JSON.stringify(
+      JSON.parse(qs("dataText").value),
+      null,
+      2
+    );
+    qs("dataStatus").className = "statusmsg good";
+    qs("dataStatus").textContent = "JSON is syntactically valid.";
+  } catch (error) {
+    qs("dataStatus").className = "statusmsg bad";
+    qs("dataStatus").textContent =
+      String(error.message || error);
+  }
+};
+
+qs("downloadDataBtn").onclick = downloadDataset;
+qs("saveDataBtn").onclick = saveDataset;
+qs("resetDataBtn").onclick = resetDatasetToRepository;
+window.addEventListener("hashchange", tryHashImport);
+
+loadData().catch(error => {
+  document.body.innerHTML =
+    `<pre style="color:#ff8b84;padding:20px">${
+      escapeHtml(error.stack || error)
+    }</pre>`;
+});
+</script>
+</body>
+</html>

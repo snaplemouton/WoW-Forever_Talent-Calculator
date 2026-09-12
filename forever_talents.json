@@ -1,0 +1,1595 @@
+{
+  "meta": {
+    "title": "World of Warcraft: Forever",
+    "dataset_name": "BlizzCon 2026 talent reconstruction",
+    "dataset_version": "2026-09-12-r4",
+    "calculator_version": "1.1.0",
+    "max_level": 60,
+    "first_talent_level": 10,
+    "max_total_points": 51,
+    "points_per_level": 1,
+    "columns": 4,
+    "notes": "Rogue is fully reconstructed from a supplied screenshot. Paladin Holy, Protection, and Retribution are now fully reconstructed from a supplied composite screenshot. Enhancement Shaman is populated from the supplied 18-talent table. Warrior remains partial pending directly readable screenshots."
+  },
+  "known_fragments": [
+    {
+      "class": "Paladin",
+      "status": "confirmed",
+      "text": "All three Paladin talent trees are now populated from a supplied BlizzCon 2026 composite. Notable Forever nodes include Light's Vigil, Voice of Truth, Consecrated Ground, Improved Seal of Fury, Templar's Bulwark, Iron Creed, Sacred Arbiter, Champion of the Light, Instrument of Law, and Twist of Light.",
+      "source": "User-provided Paladin talent-tree composite screenshot"
+    },
+    {
+      "class": "Hunter",
+      "status": "reported",
+      "text": "Beast Mastery has Summon Hawk support. Marksmanship has a Lone Wolf talent reported as +20% damage while playing without a pet.",
+      "source": "BlizzCon 2026 show-floor reports"
+    },
+    {
+      "class": "Rogue",
+      "status": "confirmed",
+      "text": "All three Rogue talent trees are now transcribed into the clickable calculator from a supplied BlizzCon 2026 screenshot. The tree includes new or heavily revised nodes such as Mutilate, Venom, Hack and Slash, Restless Blades, Quietus, Cutthroat, and Thousand Cuts.",
+      "source": "Supplied BlizzCon 2026 Rogue talent-tree screenshot"
+    },
+    {
+      "class": "Shaman",
+      "status": "confirmed",
+      "text": "Enhancement is now populated with 18 supplied talents, including Spirit Weapons, Stormstrike, Improved Stormstrike, Maelstrom Weapon, Mental Quickness, and Rage of the Farseer. Elemental and Restoration still await full captures.",
+      "source": "User-provided Enhancement Shaman transcription table"
+    },
+    {
+      "class": "Warrior",
+      "status": "reported",
+      "text": "A public screenshot album claims to capture the complete Warrior talent set. Improved Heroic Strike is publicly discussed as remaining in Arms, and Improved Intercept has appeared in public tree material. Victory Rush is also reported added. Full node transcription still needs directly readable screenshots.",
+      "source": "BlizzCon 2026 public Warrior screenshot collection and demo reports"
+    },
+    {
+      "class": "Druid",
+      "status": "reported",
+      "text": "The talent trees are revised; Improved Mark of the Wild was specifically reported removed from its old place. Druids also have a normal out-of-combat resurrection ability.",
+      "source": "BlizzCon 2026 demo reports"
+    },
+    {
+      "class": "Warlock",
+      "status": "reported",
+      "text": "Show-floor captures indicate meaningful Affliction/Demonology/Destruction changes. Community discussion mentions Incinerate access in Demonology and new Shadow-damage stacking possibilities.",
+      "source": "BlizzCon 2026 tree captures/community discussion"
+    },
+    {
+      "class": "Mage",
+      "status": "unverified",
+      "text": "A complete verified text transcription of the Forever Mage tree is not included in this initial research snapshot.",
+      "source": "Awaiting verified tree dump"
+    },
+    {
+      "class": "Priest",
+      "status": "unverified",
+      "text": "A complete verified text transcription of the Forever Priest tree is not included in this initial research snapshot.",
+      "source": "Awaiting verified tree dump"
+    }
+  ],
+  "classes": {
+    "Warrior": {
+      "trees": [
+        {
+          "name": "Arms",
+          "talents": [
+            {
+              "id": "warrior-arms-improved-heroic-strike",
+              "name": "Improved Heroic Strike",
+              "row": 1,
+              "col": 1,
+              "max_rank": 3,
+              "description": "Reduces the Rage cost of your Heroic Strike ability by 1. [Forever tooltip still needs direct screenshot verification.]",
+              "source": "Public BlizzCon 2026 WoW: Forever Warrior screenshot collection/discussion. Existence is supported publicly; exact Forever tooltip/layout still awaits direct screenshot transcription. Classic position/rank is used only as a temporary low-confidence placement.",
+              "confidence": "reported",
+              "layout_confidence": "classic-baseline-pending-forever-screenshot"
+            }
+          ],
+          "source_note": "Partial only. Improved Heroic Strike is publicly confirmed to remain in the Forever Arms tree, but this node's precise Forever tooltip/placement still needs the direct screenshot."
+        },
+        {
+          "name": "Fury",
+          "talents": [
+            {
+              "id": "warrior-fury-improved-intercept",
+              "name": "Improved Intercept",
+              "row": 5,
+              "col": 3,
+              "max_rank": 2,
+              "description": "Reduces the cooldown of your Intercept ability by 5 sec. [Forever tooltip still needs direct screenshot verification.]",
+              "source": "Public BlizzCon 2026 WoW: Forever Warrior screenshot collection/discussion. Existence is supported publicly; exact Forever tooltip/layout still awaits direct screenshot transcription. Classic position/rank is used only as a temporary low-confidence placement.",
+              "confidence": "reported",
+              "layout_confidence": "classic-baseline-pending-forever-screenshot"
+            }
+          ],
+          "source_note": "Partial only. Improved Intercept was identified in public Forever tree material; precise screenshot transcription is still pending."
+        },
+        {
+          "name": "Protection",
+          "talents": [],
+          "source_note": "No Protection nodes entered yet; waiting for directly readable Forever screenshots."
+        }
+      ]
+    },
+    "Paladin": {
+      "trees": [
+        {
+          "name": "Holy",
+          "talents": [
+            {
+              "id": "paladin-holy-improved-holy-strike",
+              "name": "Improved Holy Strike",
+              "row": 1,
+              "col": 1,
+              "max_rank": 2,
+              "description": "Reduces the cooldown of your Holy Strike ability by 1 sec.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-holy-divine-strength",
+              "name": "Divine Strength",
+              "row": 1,
+              "col": 2,
+              "max_rank": 5,
+              "description": "Increases your Strength by 2%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-holy-divine-intellect",
+              "name": "Divine Intellect",
+              "row": 1,
+              "col": 3,
+              "max_rank": 5,
+              "description": "Increases your total Intellect by 2%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-holy-healing-light",
+              "name": "Healing Light",
+              "row": 2,
+              "col": 1,
+              "max_rank": 3,
+              "description": "Increases the amount healed by your Holy Light, Flash of Light, and Holy Shock spells by 4%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-holy-spiritual-focus",
+              "name": "Spiritual Focus",
+              "row": 2,
+              "col": 2,
+              "max_rank": 2,
+              "description": "Gives your Flash of Light, Holy Light, and Light's Vigil spells a 35% chance to not lose casting time when you take damage.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-holy-improved-seals",
+              "name": "Improved Seals",
+              "row": 2,
+              "col": 3,
+              "max_rank": 3,
+              "description": "Increases the damage done by your Seals and Judgements by 5%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-holy-unyielding-faith",
+              "name": "Unyielding Faith",
+              "row": 2,
+              "col": 4,
+              "max_rank": 2,
+              "description": "Reduces the duration of Fear and Disorient effects on you by 15%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-holy-voice-of-truth",
+              "name": "Voice of Truth",
+              "row": 3,
+              "col": 1,
+              "max_rank": 1,
+              "description": "Instant. 3 min cooldown. Grants you immunity to Silence and Interrupt effects. Lasts 6 sec.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-holy-reverence",
+              "name": "Reverence",
+              "row": 3,
+              "col": 2,
+              "max_rank": 3,
+              "description": "Allows 10% of your Mana regeneration to continue while casting.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-holy-purifying-power",
+              "name": "Purifying Power",
+              "row": 3,
+              "col": 3,
+              "max_rank": 2,
+              "description": "Reduces the mana cost of your Cleanse and Purify spells by 10% and reduces the cooldown of your Exorcism and Holy Wrath spells by 17%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-holy-infusion-of-light",
+              "name": "Infusion of Light",
+              "row": 4,
+              "col": 1,
+              "max_rank": 2,
+              "description": "Your Holy Shock and Flash of Light critical hits reduce the cast time of your next Holy Light cast within 15 sec by 0.5 sec.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-holy-illumination",
+              "name": "Illumination",
+              "row": 4,
+              "col": 2,
+              "max_rank": 5,
+              "description": "After getting a critical effect from your Flash of Light, Holy Light, Light's Vigil, or Holy Shock heal spell, you have a 20% chance to gain Mana equal to 50% of the base cost of the spell.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot",
+              "requires": "paladin-holy-reverence"
+            },
+            {
+              "id": "paladin-holy-divine-favor",
+              "name": "Divine Favor",
+              "row": 4,
+              "col": 3,
+              "max_rank": 1,
+              "description": "37 Mana. Instant. 2 min cooldown. When activated, gives your next Flash of Light, Holy Light, or Holy Shock spell a 100% critical effect chance.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-holy-divine-precision",
+              "name": "Divine Precision",
+              "row": 5,
+              "col": 1,
+              "max_rank": 3,
+              "description": "Increases your chance to hit with Holy spells by 2%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot",
+              "transcription_note": "The screenshot is slightly blurred here; 2% is the per-rank value consistent with a 3-rank node."
+            },
+            {
+              "id": "paladin-holy-holy-shock",
+              "name": "Holy Shock",
+              "row": 5,
+              "col": 2,
+              "max_rank": 1,
+              "description": "160 Mana. Instant. Enemy: 20 yd range. Friendly: 40 yd range. 10 sec cooldown. Blasts the target with Holy energy, causing 120 to 140 Holy damage to an enemy, or 110 to 118 healing to an ally.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot",
+              "requires": "paladin-holy-divine-precision"
+            },
+            {
+              "id": "paladin-holy-consecrated-ground",
+              "name": "Consecrated Ground",
+              "row": 5,
+              "col": 3,
+              "max_rank": 2,
+              "description": "Gives your Holy spells 5% increased damage against the first 4 enemies that enter your Consecration.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-holy-holy-power",
+              "name": "Holy Power",
+              "row": 6,
+              "col": 3,
+              "max_rank": 5,
+              "description": "Increases the critical strike chance of your Holy Shock spell by 2%, and all other spells by 1%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-holy-lights-vigil",
+              "name": "Light's Vigil",
+              "row": 7,
+              "col": 2,
+              "max_rank": 1,
+              "description": "730 Mana. 1.5 sec cast. Enemy: 20 yd range. Friendly: 40 yd range. 8 sec cooldown. Applies Light's Vigil to the target for 30 sec. Your next Holy Shock cast on them triggers no cooldown and causes nearby targets to heal their party for a portion of the Holy damage and healing dealt. You may only have 1 Light's Vigil active per Paladin, per party.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot",
+              "requires": "paladin-holy-holy-shock",
+              "transcription_note": "The lower numerical values in this tooltip are partially blurred in the source; the mechanic, ranges, cast time, cooldown, duration, and single-active-target rule are clearly visible."
+            }
+          ],
+          "source_note": "Complete Holy tree reconstructed from the supplied screenshot. Visible dependency lines: Reverence -> Illumination, Divine Precision -> Holy Shock, Holy Shock -> Light's Vigil."
+        },
+        {
+          "name": "Protection",
+          "talents": [
+            {
+              "id": "paladin-protection-toughness",
+              "name": "Toughness",
+              "row": 1,
+              "col": 2,
+              "max_rank": 5,
+              "description": "Increases your armor value from items by 2%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-protection-redoubt",
+              "name": "Redoubt",
+              "row": 1,
+              "col": 3,
+              "max_rank": 5,
+              "description": "Damaging melee attacks against you have a 10% chance to increase your chance to block by 6%. Lasts 10 sec or 5 blocks.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-protection-precision",
+              "name": "Precision",
+              "row": 2,
+              "col": 1,
+              "max_rank": 3,
+              "description": "Increases your chance to hit with all spells and attacks by 1%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-protection-guardians-favor",
+              "name": "Guardian's Favor",
+              "row": 2,
+              "col": 2,
+              "max_rank": 2,
+              "description": "Reduces the cooldown of your Blessing of Protection by 1 min and increases the duration of your Blessing of Freedom by 3 sec.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-protection-anticipation",
+              "name": "Anticipation",
+              "row": 2,
+              "col": 4,
+              "max_rank": 5,
+              "description": "Increases your Defense Skill by 4.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-protection-improved-seal-of-fury",
+              "name": "Improved Seal of Fury",
+              "row": 3,
+              "col": 1,
+              "max_rank": 1,
+              "description": "When Seal of Fury's shield is fully absorbed, restore 20 Mana, increased by 15% per level the attacker is above you, up to 45%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-protection-improved-righteous-fury",
+              "name": "Improved Righteous Fury",
+              "row": 3,
+              "col": 2,
+              "max_rank": 3,
+              "description": "While Righteous Fury is active, all damage taken is reduced by 2%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-protection-shield-specialization",
+              "name": "Shield Specialization",
+              "row": 3,
+              "col": 3,
+              "max_rank": 3,
+              "description": "Increases the amount of damage absorbed by your shield by 10%, and gives your blocks a 33% chance to restore 6% of your maximum Mana. May only occur once every 3 sec.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot",
+              "requires": "paladin-protection-redoubt"
+            },
+            {
+              "id": "paladin-protection-sacred-duty",
+              "name": "Sacred Duty",
+              "row": 3,
+              "col": 4,
+              "max_rank": 2,
+              "description": "Increases your total Stamina by 2% and reduces the cooldown of your Divine Shield, Divine Protection, and Templar's Bulwark spells by 30 sec.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-protection-swift-judgement",
+              "name": "Swift Judgement",
+              "row": 4,
+              "col": 1,
+              "max_rank": 1,
+              "description": "Instant. 1 min cooldown. Finishes the remaining cooldown on your Judgement ability and reduces the Mana cost of your next Judgement by 100%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot",
+              "requires": "paladin-protection-improved-seal-of-fury"
+            },
+            {
+              "id": "paladin-protection-one-handed-weapon-specialization",
+              "name": "One-Handed Weapon Specialization",
+              "row": 4,
+              "col": 2,
+              "max_rank": 5,
+              "description": "Increases the damage you deal with one-handed melee weapons by 2%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-protection-improved-hammer-of-justice",
+              "name": "Improved Hammer of Justice",
+              "row": 4,
+              "col": 3,
+              "max_rank": 3,
+              "description": "Decreases the cooldown of your Hammer of Justice spell by 5 sec.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-protection-templars-bulwark",
+              "name": "Templar's Bulwark",
+              "row": 5,
+              "col": 2,
+              "max_rank": 1,
+              "description": "110 Mana. Instant. 5 min cooldown. When activated, this ability grants you an absorb shield equal to 100% of your maximum health for 8 sec. Applies Forbearance for 1 min. Cannot be cast while Forbearance is active.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-protection-reckoning",
+              "name": "Reckoning",
+              "row": 5,
+              "col": 3,
+              "max_rank": 5,
+              "description": "Gives you an 8% chance to gain an extra attack after blocking a melee attack and a 20% chance to gain an extra attack after being the victim of a non-periodic critical strike.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot",
+              "transcription_note": "The first proc percentage is slightly blurred but appears as 8% in the supplied screenshot."
+            },
+            {
+              "id": "paladin-protection-iron-creed",
+              "name": "Iron Creed",
+              "row": 6,
+              "col": 3,
+              "max_rank": 5,
+              "description": "Increases the threat generated by your Holy Strike ability 5%. While Righteous Fury is active, Holy Strike also reduces your damage taken by 2% for 6 sec.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-protection-holy-shield",
+              "name": "Holy Shield",
+              "row": 7,
+              "col": 2,
+              "max_rank": 1,
+              "description": "150 Mana. Instant. 10 sec cooldown. Requires Shields. Increases chance to block by 20% for 10 sec, and deals 110 Holy damage for each attack blocked while active. Damage caused by Holy Shield causes 20% additional threat. Each block expends a charge. 4 charges.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot",
+              "requires": "paladin-protection-templars-bulwark"
+            }
+          ],
+          "source_note": "Complete Protection tree reconstructed from the supplied screenshot. Visible dependency lines: Redoubt -> Shield Specialization, Improved Seal of Fury -> Swift Judgement, Templar's Bulwark -> Holy Shield."
+        },
+        {
+          "name": "Retribution",
+          "talents": [
+            {
+              "id": "paladin-retribution-deflection",
+              "name": "Deflection",
+              "row": 1,
+              "col": 2,
+              "max_rank": 5,
+              "description": "Increases your Parry chance by 1%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-retribution-benediction",
+              "name": "Benediction",
+              "row": 1,
+              "col": 3,
+              "max_rank": 5,
+              "description": "Reduces the Mana cost of all instant cast spells and abilities by 2%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-retribution-improved-judgement",
+              "name": "Improved Judgement",
+              "row": 2,
+              "col": 1,
+              "max_rank": 2,
+              "description": "Decreases the cooldown of your Judgement ability by 1 sec.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-retribution-holy-conduit",
+              "name": "Holy Conduit",
+              "row": 2,
+              "col": 2,
+              "max_rank": 2,
+              "description": "Reduces the mana cost of your Consecration, Holy Wrath, Exorcism and Hammer of Wrath spells by 20%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-retribution-conviction",
+              "name": "Conviction",
+              "row": 2,
+              "col": 3,
+              "max_rank": 5,
+              "description": "Increases your chance to get a critical strike with melee attacks by 1%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-retribution-vindication",
+              "name": "Vindication",
+              "row": 3,
+              "col": 1,
+              "max_rank": 3,
+              "description": "Gives your damaging melee attacks a chance to reduce the target's Attack Power and increase your Attack Power for 30 sec.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot",
+              "transcription_note": "The exact Attack Power values are too blurred in the supplied composite to transcribe safely."
+            },
+            {
+              "id": "paladin-retribution-sanctified-judgement",
+              "name": "Sanctified Judgement",
+              "row": 3,
+              "col": 2,
+              "max_rank": 3,
+              "description": "Gives your Judgement ability a 33% chance to refund part of the Mana cost of the judged seal.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot",
+              "transcription_note": "The refund percentage is partially blurred in the screenshot; the proc chance and mechanic are clear."
+            },
+            {
+              "id": "paladin-retribution-seal-of-command",
+              "name": "Seal of Command",
+              "row": 3,
+              "col": 3,
+              "max_rank": 1,
+              "description": "65 Mana. Instant. Gives the Paladin a chance to deal additional Holy damage equal to 70% of normal weapon damage. Only one Seal can be active on the Paladin at any one time. Unleashing this Seal's energy will judge an enemy, instantly causing Holy damage, with additional damage if the target is stunned or incapacitated.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot",
+              "transcription_note": "The exact Judgement damage numbers are partially blurred in the screenshot."
+            },
+            {
+              "id": "paladin-retribution-pursuit-of-justice",
+              "name": "Pursuit of Justice",
+              "row": 3,
+              "col": 4,
+              "max_rank": 2,
+              "description": "Increases movement speed and mounted movement speed by 3%. This does not stack with other movement speed increasing effects.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-retribution-eye-for-an-eye",
+              "name": "Eye for an Eye",
+              "row": 4,
+              "col": 1,
+              "max_rank": 2,
+              "description": "All critical strikes against you cause 5% of the damage taken to be dealt back to the attacker. The damage caused by Eye for an Eye will not exceed 50% of the Paladin's total health.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-retribution-sacred-arbiter",
+              "name": "Sacred Arbiter",
+              "row": 4,
+              "col": 3,
+              "max_rank": 1,
+              "description": "Increases the damage of your Holy Strike ability by 10% and causes it to refresh all Judgement effects on the target.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-retribution-crusade",
+              "name": "Crusade",
+              "row": 4,
+              "col": 4,
+              "max_rank": 2,
+              "description": "Increases all damage dealt by 1%. Increased by an additional 1% against Demon and Undead targets.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-retribution-two-handed-weapon-specialization",
+              "name": "Two-Handed Weapon Specialization",
+              "row": 5,
+              "col": 1,
+              "max_rank": 3,
+              "description": "Increases the damage you deal with two-handed melee weapons by 2%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-retribution-vengeance",
+              "name": "Vengeance",
+              "row": 5,
+              "col": 2,
+              "max_rank": 3,
+              "description": "Increases your Physical and Holy damage dealt by 1% for 30 sec after landing a critical melee. Stacks up to 5 times.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot",
+              "requires": "paladin-retribution-sanctified-judgement"
+            },
+            {
+              "id": "paladin-retribution-repentance",
+              "name": "Repentance",
+              "row": 5,
+              "col": 3,
+              "max_rank": 1,
+              "description": "60 Mana. Instant. 20 yd range. 1 min cooldown. Puts the enemy target in a state of meditation, incapacitating them for up to 6 sec. Any damage caused will awaken the target. Only works against Humanoids.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-retribution-champion-of-the-light",
+              "name": "Champion of the Light",
+              "row": 6,
+              "col": 2,
+              "max_rank": 3,
+              "description": "Increases your spell damage and healing by up to 33% of your Intellect.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-retribution-instrument-of-law",
+              "name": "Instrument of Law",
+              "row": 6,
+              "col": 3,
+              "max_rank": 2,
+              "description": "Reduces the cast time of your Hammer of Wrath by 0.5 sec. and reduces all threat you generate by 10% while Righteous Fury is not active.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot"
+            },
+            {
+              "id": "paladin-retribution-twist-of-light",
+              "name": "Twist of Light",
+              "row": 7,
+              "col": 2,
+              "max_rank": 1,
+              "description": "Requires Level 40. When you replace your Seal of Command, Seal of Righteousness, Seal of Fury, or Seal of Justice with a different Seal, gain an Echo. Your next melee attack applies the replaced Seal's effect, consuming the Echo.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
+              "confidence": "confirmed",
+              "layout_confidence": "confirmed-from-screenshot",
+              "transcription_note": "The final seal name/effect wording is somewhat blurred; the Echo/seal-twisting mechanic is clear."
+            }
+          ],
+          "source_note": "Complete Retribution tree reconstructed from the supplied screenshot. The only clearly visible dependency line is Sanctified Judgement -> Vengeance. No other prerequisite was invented."
+        }
+      ]
+    },
+    "Hunter": {
+      "trees": [
+        {
+          "name": "Beast Mastery",
+          "talents": []
+        },
+        {
+          "name": "Marksmanship",
+          "talents": []
+        },
+        {
+          "name": "Survival",
+          "talents": []
+        }
+      ]
+    },
+    "Rogue": {
+      "trees": [
+        {
+          "name": "Assassination",
+          "talents": [
+            {
+              "id": "rogue-assassination-improved-gouge",
+              "name": "Improved Gouge",
+              "row": 1,
+              "col": 1,
+              "max_rank": 3,
+              "description": "Increases the duration of your Gouge ability by 0.5 sec.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-assassination-remorseless-attacks",
+              "name": "Remorseless Attacks",
+              "row": 1,
+              "col": 2,
+              "max_rank": 2,
+              "description": "After killing a non-trivial enemy, gives you a 20% increased critical strike chance on your next Sinister Strike, Backstab, Ambush, Mutilate, or Ghostly Strike. Lasts 20 sec.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-assassination-malice",
+              "name": "Malice",
+              "row": 1,
+              "col": 3,
+              "max_rank": 5,
+              "description": "Increases your critical strike chance with all attacks and Poisons by 1%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-assassination-ruthlessness",
+              "name": "Ruthlessness",
+              "row": 2,
+              "col": 1,
+              "max_rank": 3,
+              "description": "Gives your finishing moves a 20% chance to add a Combo Point to your target.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-assassination-murder",
+              "name": "Murder",
+              "row": 2,
+              "col": 2,
+              "max_rank": 2,
+              "description": "Increases all damage dealt by 2% against Humanoid and Giant targets.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-assassination-improved-slice-and-dice",
+              "name": "Improved Slice and Dice",
+              "row": 2,
+              "col": 3,
+              "max_rank": 3,
+              "description": "Increases the duration of your Slice and Dice ability by 15%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-assassination-relentless-strikes",
+              "name": "Relentless Strikes",
+              "row": 3,
+              "col": 1,
+              "max_rank": 1,
+              "description": "Your finishing moves have a 20% chance per Combo Point to restore 25 Energy.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-assassination-improved-expose-armor",
+              "name": "Improved Expose Armor",
+              "row": 3,
+              "col": 2,
+              "max_rank": 2,
+              "description": "Reduces the Energy cost of your Expose Armor ability by 5, and refunds 1 Combo Point when cast with 5 Combo Points.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-assassination-lethality",
+              "name": "Lethality",
+              "row": 3,
+              "col": 3,
+              "max_rank": 5,
+              "requires": "rogue-assassination-malice",
+              "description": "Increases the critical strike damage bonus of your Sinister Strike, Gouge, Backstab, Mutilate, Ghostly Strike, and Hemorrhage abilities by 6%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-assassination-vile-poisons",
+              "name": "Vile Poisons",
+              "row": 4,
+              "col": 1,
+              "max_rank": 5,
+              "description": "Increases the damage dealt by your poisons by 4%, and gives your poisons an additional 8% chance to resist dispel effects.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-assassination-cold-blood",
+              "name": "Cold Blood",
+              "row": 4,
+              "col": 2,
+              "max_rank": 1,
+              "description": "Instant. 3 min cooldown. When activated, increases the critical strike chance of your next Sinister Strike, Backstab, Ambush, Eviscerate, or Mutilate by 100%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-assassination-improved-poisons",
+              "name": "Improved Poisons",
+              "row": 4,
+              "col": 3,
+              "max_rank": 5,
+              "description": "Increases the chance to apply Poisons to your target by 2%, and gives Poison applications a 10% chance to not consume a charge.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-assassination-vigor",
+              "name": "Vigor",
+              "row": 5,
+              "col": 1,
+              "max_rank": 2,
+              "description": "Increases your maximum Energy by 5.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-assassination-mutilate",
+              "name": "Mutilate",
+              "row": 5,
+              "col": 2,
+              "max_rank": 1,
+              "description": "60 Energy. Melee Range. Instant. Instantly attacks with both weapons for 75% weapon damage plus an additional 13 with each weapon. Damage increased by 20% against Poisoned targets. Awards 2 Combo Points.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-assassination-improved-kidney-shot",
+              "name": "Improved Kidney Shot",
+              "row": 5,
+              "col": 3,
+              "max_rank": 2,
+              "description": "Enemies Stunned by your Kidney Shot ability take 5% increased damage from your poisons and attacks.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-assassination-seal-fate",
+              "name": "Seal Fate",
+              "row": 6,
+              "col": 3,
+              "max_rank": 5,
+              "description": "Your critical strikes from abilities that add Combo Points have a 20% chance to add an additional Combo Point.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-assassination-venom",
+              "name": "Venom",
+              "row": 7,
+              "col": 2,
+              "max_rank": 1,
+              "requires": "rogue-assassination-mutilate",
+              "description": "25 Energy. 1 to 5 Combo Points. Instant. Finishing move that increases the damage of your Poisons by 30% and your chance to apply Poisons by 10%. Lasts longer per combo point: 1 point: 9 seconds; 2 points: 12 seconds; 3 points: 15 seconds; 4 points: 18 seconds; 5 points: 21 seconds.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            }
+          ]
+        },
+        {
+          "name": "Combat",
+          "talents": [
+            {
+              "id": "rogue-combat-improved-eviscerate",
+              "name": "Improved Eviscerate",
+              "row": 1,
+              "col": 1,
+              "max_rank": 3,
+              "description": "Increases the damage done by your Eviscerate ability by 7%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-combat-improved-sinister-strike",
+              "name": "Improved Sinister Strike",
+              "row": 1,
+              "col": 2,
+              "max_rank": 2,
+              "description": "Reduces the Energy cost of your Sinister Strike ability by 3.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-combat-lightning-reflexes",
+              "name": "Lightning Reflexes",
+              "row": 1,
+              "col": 3,
+              "max_rank": 5,
+              "description": "Increases your Dodge chance by 1%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-combat-puncturing-wounds",
+              "name": "Puncturing Wounds",
+              "row": 2,
+              "col": 1,
+              "max_rank": 3,
+              "description": "Increases the critical strike chance of your Backstab by 10% and your Mutilate by 5%, and gives Backstab a 15% chance to add an additional Combo Point.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-combat-deflection",
+              "name": "Deflection",
+              "row": 2,
+              "col": 2,
+              "max_rank": 3,
+              "description": "Increases your Parry chance by 2%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-combat-precision",
+              "name": "Precision",
+              "row": 2,
+              "col": 3,
+              "max_rank": 3,
+              "description": "Increases your chance to hit with all attacks and Poisons by 1%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-combat-endurance",
+              "name": "Endurance",
+              "row": 3,
+              "col": 1,
+              "max_rank": 2,
+              "description": "Reduces the cooldown of your Sprint and Evasion abilities by 30%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-combat-riposte",
+              "name": "Riposte",
+              "row": 3,
+              "col": 2,
+              "max_rank": 1,
+              "description": "10 Energy. Melee Range. Instant. 6 sec cooldown. A strike that becomes active after parrying an opponent's attack. This attack deals 150% weapon damage and disarms the target for 6 sec.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-combat-improved-sprint",
+              "name": "Improved Sprint",
+              "row": 3,
+              "col": 3,
+              "max_rank": 2,
+              "description": "Gives a 50% chance to remove all movement impairing effects when you activate your Sprint ability.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-combat-improved-kick",
+              "name": "Improved Kick",
+              "row": 4,
+              "col": 1,
+              "max_rank": 2,
+              "description": "Gives your Kick ability a 50% chance to Silence the target for 2 sec.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-combat-restless-blades",
+              "name": "Restless Blades",
+              "row": 4,
+              "col": 2,
+              "max_rank": 1,
+              "description": "Your damaging finishing moves reduce the remaining cooldown of your Adrenaline Rush, Blade Flurry, Evasion, Sprint, and Vanish abilities by 2 sec per combo point.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-combat-dual-wield-specialization",
+              "name": "Dual Wield Specialization",
+              "row": 4,
+              "col": 3,
+              "max_rank": 5,
+              "requires": "rogue-combat-precision",
+              "description": "Increases the damage done by your off-hand weapon by 5%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-combat-blade-flurry",
+              "name": "Blade Flurry",
+              "row": 5,
+              "col": 2,
+              "max_rank": 1,
+              "description": "25 Energy. Instant. 2 min cooldown. Increases your melee attack speed by 20% and your melee attacks strike an additional nearby opponent. Lasts 15 sec.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-combat-hack-and-slash",
+              "name": "Hack and Slash",
+              "row": 5,
+              "col": 3,
+              "max_rank": 5,
+              "description": "Gives your melee weapon attacks a benefit depending on the weapon. Axe/Sword: Your successful melee attacks have a 1% chance to trigger an extra attack on the target. Dagger/Fist: Increases your critical strike chance by 1%. Mace: Your attacks ignore 1% of your target's armor.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-combat-weapon-expertise",
+              "name": "Weapon Expertise",
+              "row": 6,
+              "col": 2,
+              "max_rank": 2,
+              "requires": "rogue-combat-blade-flurry",
+              "description": "Reduces the chance for your attacks to be Dodged or Parried by 1%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-combat-aggression",
+              "name": "Aggression",
+              "row": 6,
+              "col": 3,
+              "max_rank": 3,
+              "description": "Increases the damage of your Sinister Strike, Backstab, and Eviscerate abilities by 2%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-combat-adrenaline-rush",
+              "name": "Adrenaline Rush",
+              "row": 7,
+              "col": 2,
+              "max_rank": 1,
+              "description": "Instant. 5 min cooldown. Increases your Energy regeneration rate by 100% for 15 sec.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            }
+          ]
+        },
+        {
+          "name": "Subtlety",
+          "talents": [
+            {
+              "id": "rogue-subtlety-camouflage",
+              "name": "Camouflage",
+              "row": 1,
+              "col": 1,
+              "max_rank": 5,
+              "description": "Reduces your speed penalty from your Stealth ability by 3% and reduces its cooldown by 2 sec.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-subtlety-master-of-deception",
+              "name": "Master of Deception",
+              "row": 1,
+              "col": 2,
+              "max_rank": 3,
+              "description": "Reduces the chance enemies have to detect you while in Stealth mode as if you were 1 level higher.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-subtlety-opportunity",
+              "name": "Opportunity",
+              "row": 1,
+              "col": 3,
+              "max_rank": 2,
+              "description": "Increases the damage dealt by your Backstab, Garrote, Ambush, and Mutilate abilities by 5%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-subtlety-setup",
+              "name": "Setup",
+              "row": 2,
+              "col": 1,
+              "max_rank": 3,
+              "description": "Gives you a 33% chance to add a Combo Point to your target after Dodging an attack or fully resisting a spell.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-subtlety-elusiveness",
+              "name": "Elusiveness",
+              "row": 2,
+              "col": 2,
+              "max_rank": 2,
+              "description": "Reduces the cooldown of your Vanish and Blind abilities by 45 sec.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-subtlety-dirty-tricks",
+              "name": "Dirty Tricks",
+              "row": 2,
+              "col": 3,
+              "max_rank": 2,
+              "description": "Reduces the Energy cost of your Sap and Blind abilities by 25%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-subtlety-improved-ambush",
+              "name": "Improved Ambush",
+              "row": 2,
+              "col": 4,
+              "max_rank": 3,
+              "description": "Increases the critical strike chance of your Ambush ability by 15%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-subtlety-initiative",
+              "name": "Initiative",
+              "row": 3,
+              "col": 1,
+              "max_rank": 3,
+              "description": "Gives you a 33% chance to add an additional Combo Point to your target when using your Ambush, Garrote, or Cheap Shot ability.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-subtlety-ghostly-strike",
+              "name": "Ghostly Strike",
+              "row": 3,
+              "col": 2,
+              "max_rank": 1,
+              "description": "40 Energy. Melee Range. Instant. 20 sec cooldown. A strike that deals 125% (180% if a Dagger is equipped in your Main Hand) weapon damage and increases your chance to dodge by 15% for 7 sec. Awards 1 combo point.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-subtlety-improved-distract",
+              "name": "Improved Distract",
+              "row": 3,
+              "col": 3,
+              "max_rank": 2,
+              "description": "Increases the radius of your Distract ability by 3 yds, and further reduces the stealth detection of distracted enemies as though they were an additional 1 level lower.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-subtlety-heightened-senses",
+              "name": "Heightened Senses",
+              "row": 4,
+              "col": 1,
+              "max_rank": 2,
+              "description": "Increases your Stealth detection as if you were 1 level higher and reduces your chance to be hit by spells and ranged attacks by 2%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-subtlety-premeditation",
+              "name": "Premeditation",
+              "row": 4,
+              "col": 2,
+              "max_rank": 1,
+              "description": "20 yd range. Instant. 2 min cooldown. Adds 2 Combo Points to your target. You must add to or use the combo points within 20 sec or the combo points are lost.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-subtlety-serrated-blades",
+              "name": "Serrated Blades",
+              "row": 4,
+              "col": 3,
+              "max_rank": 3,
+              "description": "Causes your attacks to ignore 3% of your target's Armor and increases the damage dealt by your Rupture ability by 10%.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-subtlety-dirty-deeds",
+              "name": "Dirty Deeds",
+              "row": 5,
+              "col": 1,
+              "max_rank": 2,
+              "description": "Reduces the Energy cost of your Cheap Shot and Garrote abilities by 10, and your Garrote ability no longer requires you to be behind your target.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-subtlety-preparation",
+              "name": "Preparation",
+              "row": 5,
+              "col": 2,
+              "max_rank": 1,
+              "description": "Instant. 10 min cooldown. When activated, this ability immediately finishes the cooldown on your other Rogue abilities.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-subtlety-hemorrhage",
+              "name": "Hemorrhage",
+              "row": 5,
+              "col": 3,
+              "max_rank": 1,
+              "description": "35 Energy. Melee Range. Instant. An instant strike that deals 100% weapon damage (145% if a Dagger is equipped) and causes the target to take 1% increased Rupture damage from the Rogue. Lasts 15 sec. Awards 1 Combo Point.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-subtlety-quietus",
+              "name": "Quietus",
+              "row": 6,
+              "col": 1,
+              "max_rank": 5,
+              "description": "Your Sinister Strike, Ghostly Strike, and Hemorrhage abilities cause 2% more damage against targets below 35% health.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-subtlety-cutthroat",
+              "name": "Cutthroat",
+              "row": 6,
+              "col": 3,
+              "max_rank": 5,
+              "description": "Your Backstab has a 3% chance to cause your next Ambush within 10 sec to not require Stealth.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            },
+            {
+              "id": "rogue-subtlety-thousand-cuts",
+              "name": "Thousand Cuts",
+              "row": 7,
+              "col": 2,
+              "max_rank": 1,
+              "requires": "rogue-subtlety-preparation",
+              "description": "When your Rupture ability deals periodic damage, the Energy cost of your next Hemorrhage or Backstab ability within 10 sec is reduced by 3, stacking up to 5 times.",
+              "source": "User-provided WoW: Forever BlizzCon 2026 Rogue talent-tree screenshot",
+              "confidence": "confirmed"
+            }
+          ]
+        }
+      ]
+    },
+    "Priest": {
+      "trees": [
+        {
+          "name": "Discipline",
+          "talents": []
+        },
+        {
+          "name": "Holy",
+          "talents": []
+        },
+        {
+          "name": "Shadow",
+          "talents": []
+        }
+      ]
+    },
+    "Shaman": {
+      "trees": [
+        {
+          "name": "Elemental",
+          "talents": []
+        },
+        {
+          "name": "Enhancement",
+          "talents": [
+            {
+              "id": "shaman-enhancement-earths-grasp",
+              "name": "Earth's Grasp",
+              "row": 1,
+              "col": 1,
+              "max_rank": 2,
+              "description": "Increases the health of your Stoneclaw Totem by 25% and the radius of your Earthbind Totem by 10%.",
+              "source": "User-provided WoW: Forever Enhancement Shaman transcription table (2026-09-12). Tier/Level, text, ranks, and prerequisites are transcribed from the table; horizontal columns are inferred because the table does not include column positions.",
+              "confidence": "confirmed",
+              "source_level": 1,
+              "layout_confidence": "row-confirmed-column-inferred"
+            },
+            {
+              "id": "shaman-enhancement-thundering-strikes",
+              "name": "Thundering Strikes",
+              "row": 1,
+              "col": 2,
+              "max_rank": 5,
+              "description": "Improves your chance to get a critical strike with all spells and attacks by 1%.",
+              "source": "User-provided WoW: Forever Enhancement Shaman transcription table (2026-09-12). Tier/Level, text, ranks, and prerequisites are transcribed from the table; horizontal columns are inferred because the table does not include column positions.",
+              "confidence": "confirmed",
+              "source_level": 1,
+              "layout_confidence": "row-confirmed-column-inferred"
+            },
+            {
+              "id": "shaman-enhancement-ancestral-knowledge",
+              "name": "Ancestral Knowledge",
+              "row": 1,
+              "col": 3,
+              "max_rank": 5,
+              "description": "Increases your Intellect by 2%.",
+              "source": "User-provided WoW: Forever Enhancement Shaman transcription table (2026-09-12). Tier/Level, text, ranks, and prerequisites are transcribed from the table; horizontal columns are inferred because the table does not include column positions.",
+              "confidence": "confirmed",
+              "source_level": 1,
+              "layout_confidence": "row-confirmed-column-inferred"
+            },
+            {
+              "id": "shaman-enhancement-mental-dexterity",
+              "name": "Mental Dexterity",
+              "row": 2,
+              "col": 1,
+              "max_rank": 3,
+              "description": "Increases your Attack Power by an amount equal to 33% of your Intellect.",
+              "source": "User-provided WoW: Forever Enhancement Shaman transcription table (2026-09-12). Tier/Level, text, ranks, and prerequisites are transcribed from the table; horizontal columns are inferred because the table does not include column positions.",
+              "confidence": "confirmed",
+              "source_level": 2,
+              "layout_confidence": "row-confirmed-column-inferred"
+            },
+            {
+              "id": "shaman-enhancement-improved-ghost-wolf",
+              "name": "Improved Ghost Wolf",
+              "row": 2,
+              "col": 2,
+              "max_rank": 2,
+              "description": "Reduces the cast time of your Ghost Wolf spell by 1.0 sec. and Ghost Wolf may be used indoors.",
+              "source": "User-provided WoW: Forever Enhancement Shaman transcription table (2026-09-12). Tier/Level, text, ranks, and prerequisites are transcribed from the table; horizontal columns are inferred because the table does not include column positions.",
+              "confidence": "confirmed",
+              "source_level": 2,
+              "layout_confidence": "row-confirmed-column-inferred"
+            },
+            {
+              "id": "shaman-enhancement-improved-lightning-shield",
+              "name": "Improved Lightning Shield",
+              "row": 2,
+              "col": 3,
+              "max_rank": 3,
+              "description": "Increases the damage done by your Lightning Shield orbs by 15%.",
+              "source": "User-provided WoW: Forever Enhancement Shaman transcription table (2026-09-12). Tier/Level, text, ranks, and prerequisites are transcribed from the table; horizontal columns are inferred because the table does not include column positions.",
+              "confidence": "confirmed",
+              "source_level": 2,
+              "layout_confidence": "row-confirmed-column-inferred"
+            },
+            {
+              "id": "shaman-enhancement-guardian-totems",
+              "name": "Guardian Totems",
+              "row": 3,
+              "col": 1,
+              "max_rank": 2,
+              "description": "Increases the amount of damage reduced by your Stoneskin Totem and Windwall Totem by 10% and reduces the cooldown of your Grounding Totem by 1 sec.",
+              "source": "User-provided WoW: Forever Enhancement Shaman transcription table (2026-09-12). Tier/Level, text, ranks, and prerequisites are transcribed from the table; horizontal columns are inferred because the table does not include column positions.",
+              "confidence": "confirmed",
+              "source_level": 3,
+              "layout_confidence": "row-confirmed-column-inferred"
+            },
+            {
+              "id": "shaman-enhancement-elemental-weapons",
+              "name": "Elemental Weapons",
+              "row": 3,
+              "col": 2,
+              "max_rank": 3,
+              "description": "Increases the melee attack power bonus of your Rockbiter Weapon by 7%, your Windfury Weapon effect by 13% and increases the damage caused by your Flametongue Weapon and Frostbrand Weapon by 5%.",
+              "source": "User-provided WoW: Forever Enhancement Shaman transcription table (2026-09-12). Tier/Level, text, ranks, and prerequisites are transcribed from the table; horizontal columns are inferred because the table does not include column positions.",
+              "confidence": "confirmed",
+              "source_level": 3,
+              "layout_confidence": "row-confirmed-column-inferred"
+            },
+            {
+              "id": "shaman-enhancement-shamanistic-focus",
+              "name": "Shamanistic Focus",
+              "row": 3,
+              "col": 3,
+              "max_rank": 1,
+              "description": "Reduces the mana cost of your Shock and Lightning Shield spells by 45%.",
+              "source": "User-provided WoW: Forever Enhancement Shaman transcription table (2026-09-12). Tier/Level, text, ranks, and prerequisites are transcribed from the table; horizontal columns are inferred because the table does not include column positions.",
+              "confidence": "confirmed",
+              "source_level": 3,
+              "layout_confidence": "row-confirmed-column-inferred"
+            },
+            {
+              "id": "shaman-enhancement-anticipation",
+              "name": "Anticipation",
+              "row": 3,
+              "col": 4,
+              "max_rank": 3,
+              "description": "Increases your chance to dodge by an additional 2%.",
+              "source": "User-provided WoW: Forever Enhancement Shaman transcription table (2026-09-12). Tier/Level, text, ranks, and prerequisites are transcribed from the table; horizontal columns are inferred because the table does not include column positions.",
+              "confidence": "confirmed",
+              "source_level": 3,
+              "layout_confidence": "row-confirmed-column-inferred"
+            },
+            {
+              "id": "shaman-enhancement-toughness",
+              "name": "Toughness",
+              "row": 4,
+              "col": 1,
+              "max_rank": 5,
+              "description": "Increases your Stamina by 2%.",
+              "source": "User-provided WoW: Forever Enhancement Shaman transcription table (2026-09-12). Tier/Level, text, ranks, and prerequisites are transcribed from the table; horizontal columns are inferred because the table does not include column positions.",
+              "confidence": "confirmed",
+              "source_level": 4,
+              "layout_confidence": "row-confirmed-column-inferred"
+            },
+            {
+              "id": "shaman-enhancement-flurry",
+              "name": "Flurry",
+              "row": 4,
+              "col": 2,
+              "max_rank": 5,
+              "requires": "shaman-enhancement-thundering-strikes",
+              "description": "Increases your attack speed by 5% for your next 3 swings after dealing a melee critical strike.",
+              "source": "User-provided WoW: Forever Enhancement Shaman transcription table (2026-09-12). Tier/Level, text, ranks, and prerequisites are transcribed from the table; horizontal columns are inferred because the table does not include column positions.",
+              "confidence": "confirmed",
+              "source_level": 4,
+              "layout_confidence": "row-confirmed-column-inferred"
+            },
+            {
+              "id": "shaman-enhancement-stormstrike",
+              "name": "Stormstrike",
+              "row": 4,
+              "col": 3,
+              "max_rank": 1,
+              "requires": "shaman-enhancement-spirit-weapons",
+              "description": "Instantly strike for normal weapon damage and increase Nature damage you deal to the target by 20% for 12 sec.",
+              "source": "User-provided WoW: Forever Enhancement Shaman transcription table (2026-09-12). Tier/Level, text, ranks, and prerequisites are transcribed from the table; horizontal columns are inferred because the table does not include column positions.",
+              "confidence": "confirmed",
+              "source_level": 4,
+              "layout_confidence": "row-confirmed-column-inferred"
+            },
+            {
+              "id": "shaman-enhancement-spirit-weapons",
+              "name": "Spirit Weapons",
+              "row": 5,
+              "col": 1,
+              "max_rank": 1,
+              "description": "Gives a chance to parry enemy melee attacks, reduces all threat generated by your attacks by 30% while Rockbiter Weapon is not active, and increases all threat generated by 30% while Rockbiter Weapon is active.",
+              "source": "User-provided WoW: Forever Enhancement Shaman transcription table (2026-09-12). Tier/Level, text, ranks, and prerequisites are transcribed from the table; horizontal columns are inferred because the table does not include column positions.",
+              "confidence": "confirmed",
+              "source_level": 5,
+              "layout_confidence": "row-confirmed-column-inferred"
+            },
+            {
+              "id": "shaman-enhancement-mental-quickness",
+              "name": "Mental Quickness",
+              "row": 5,
+              "col": 2,
+              "max_rank": 2,
+              "description": "Increases your spell damage and healing by up to 15% of your Intellect.",
+              "source": "User-provided WoW: Forever Enhancement Shaman transcription table (2026-09-12). Tier/Level, text, ranks, and prerequisites are transcribed from the table; horizontal columns are inferred because the table does not include column positions.",
+              "confidence": "confirmed",
+              "source_level": 5,
+              "layout_confidence": "row-confirmed-column-inferred"
+            },
+            {
+              "id": "shaman-enhancement-improved-stormstrike",
+              "name": "Improved Stormstrike",
+              "row": 5,
+              "col": 3,
+              "max_rank": 2,
+              "requires": "shaman-enhancement-stormstrike",
+              "description": "When you Stormstrike, you have a 50% chance to gain 50% mana regeneration while casting spells for 15 sec, and Stormstrike's cooldown has a 50% chance to reset each time you Dodge or Parry.",
+              "source": "User-provided WoW: Forever Enhancement Shaman transcription table (2026-09-12). Tier/Level, text, ranks, and prerequisites are transcribed from the table; horizontal columns are inferred because the table does not include column positions.",
+              "confidence": "confirmed",
+              "source_level": 5,
+              "layout_confidence": "row-confirmed-column-inferred"
+            },
+            {
+              "id": "shaman-enhancement-maelstrom-weapon",
+              "name": "Maelstrom Weapon",
+              "row": 6,
+              "col": 2,
+              "max_rank": 5,
+              "description": "When you deal damage with a melee attack, you have a chance to reduce the cast time and mana cost of your next Lightning Bolt spell by 4%. Stacks up to 5 times. Lasts 30 sec.",
+              "source": "User-provided WoW: Forever Enhancement Shaman transcription table (2026-09-12). Tier/Level, text, ranks, and prerequisites are transcribed from the table; horizontal columns are inferred because the table does not include column positions.",
+              "confidence": "confirmed",
+              "source_level": 6,
+              "layout_confidence": "row-confirmed-column-inferred"
+            },
+            {
+              "id": "shaman-enhancement-rage-of-the-farseer",
+              "name": "Rage of the Farseer",
+              "row": 6,
+              "col": 3,
+              "max_rank": 1,
+              "requires": "shaman-enhancement-mental-quickness",
+              "description": "Increases your melee attack speed and spell casting speed by 30% for 25 sec.",
+              "source": "User-provided WoW: Forever Enhancement Shaman transcription table (2026-09-12). Tier/Level, text, ranks, and prerequisites are transcribed from the table; horizontal columns are inferred because the table does not include column positions.",
+              "confidence": "confirmed",
+              "source_level": 6,
+              "layout_confidence": "row-confirmed-column-inferred"
+            }
+          ],
+          "source_note": "All 18 talents are transcribed from the supplied table. Horizontal columns are inferred from table order because the source omits column positions. The unusual Stormstrike -> Spirit Weapons dependency is preserved exactly as supplied even though Spirit Weapons is listed one tier deeper."
+        },
+        {
+          "name": "Restoration",
+          "talents": []
+        }
+      ]
+    },
+    "Mage": {
+      "trees": [
+        {
+          "name": "Arcane",
+          "talents": []
+        },
+        {
+          "name": "Fire",
+          "talents": []
+        },
+        {
+          "name": "Frost",
+          "talents": []
+        }
+      ]
+    },
+    "Warlock": {
+      "trees": [
+        {
+          "name": "Affliction",
+          "talents": []
+        },
+        {
+          "name": "Demonology",
+          "talents": []
+        },
+        {
+          "name": "Destruction",
+          "talents": []
+        }
+      ]
+    },
+    "Druid": {
+      "trees": [
+        {
+          "name": "Balance",
+          "talents": []
+        },
+        {
+          "name": "Feral Combat",
+          "talents": []
+        },
+        {
+          "name": "Restoration",
+          "talents": []
+        }
+      ]
+    }
+  }
+}
