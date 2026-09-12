@@ -79,8 +79,8 @@
               "row": 1,
               "col": 1,
               "max_rank": 3,
-              "description": "Reduces the Rage cost of your Heroic Strike ability by 1. [Forever tooltip still needs direct screenshot verification.]",
-              "source": "Public BlizzCon 2026 WoW: Forever Warrior screenshot collection/discussion. Existence is supported publicly; exact Forever tooltip/layout still awaits direct screenshot transcription. Classic position/rank is used only as a temporary low-confidence placement.",
+              "description": "Reduces the Rage cost of your Heroic Strike ability by 1.",
+              "source": "Public BlizzCon 2026 WoW: Forever Warrior screenshot collection/discussion. Existence is supported publicly; exact Forever tooltip/layout still awaits direct screenshot transcription.",
               "confidence": "reported",
               "layout_confidence": "classic-baseline-pending-forever-screenshot"
             }
@@ -96,8 +96,8 @@
               "row": 5,
               "col": 3,
               "max_rank": 2,
-              "description": "Reduces the cooldown of your Intercept ability by 5 sec. [Forever tooltip still needs direct screenshot verification.]",
-              "source": "Public BlizzCon 2026 WoW: Forever Warrior screenshot collection/discussion. Existence is supported publicly; exact Forever tooltip/layout still awaits direct screenshot transcription. Classic position/rank is used only as a temporary low-confidence placement.",
+              "description": "Reduces the cooldown of your Intercept ability by 5 sec.",
+              "source": "Public BlizzCon 2026 WoW: Forever Warrior screenshot collection/discussion. Existence is supported publicly; exact Forever tooltip/layout still awaits direct screenshot transcription.",
               "confidence": "reported",
               "layout_confidence": "classic-baseline-pending-forever-screenshot"
             }
@@ -608,7 +608,7 @@
               "row": 3,
               "col": 4,
               "max_rank": 2,
-              "description": "Increases movement speed and mounted movement speed by 3%. This does not stack with other movement speed increasing effects.",
+              "description": "Increases movement speed and mounted movement speed by 8%. This does not stack with other movement speed increasing effects.",
               "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
               "confidence": "confirmed",
               "layout_confidence": "confirmed-from-screenshot"
@@ -1524,8 +1524,8 @@
             {
               "id": "shaman-enhancement-rage-of-the-farseer",
               "name": "Rage of the Farseer",
-              "row": 6,
-              "col": 3,
+              "row": 7,
+              "col": 2,
               "max_rank": 1,
               "requires": "shaman-enhancement-mental-quickness",
               "description": "Increases your melee attack speed and spell casting speed by 30% for 25 sec.",
