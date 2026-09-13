@@ -1260,27 +1260,10 @@
               "row": 3,
               "col": 1,
               "max_rank": 3,
-              "description": "Gives your damaging melee attacks a chance to reduce the target's Attack Power and increase your Attack Power for 127, and increase your Attack Power by 1% for 30 sec.",
+              "description": "Gives your damaging melee attacks a chance to reduce the target's Attack Power and increase your Attack Power for 127, and increase your Attack Power by 3% for 30 sec.",
               "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
               "confidence": "confirmed",
               "layout_confidence": "confirmed-from-screenshot",
-              "ranks": [
-                {
-                  "rank": 1,
-                  "description": "Gives your damaging melee attacks a chance to reduce the target's Attack Power and increase your Attack Power for 42, and increase your Attack Power by 1% for 30 sec.",
-                  "certainty": "inferred"
-                },
-                {
-                  "rank": 2,
-                  "description": "Gives your damaging melee attacks a chance to reduce the target's Attack Power and increase your Attack Power for 85, and increase your Attack Power by 2% for 30 sec.",
-                  "certainty": "inferred"
-                },
-                {
-                  "rank": 3,
-                  "description": "Gives your damaging melee attacks a chance to reduce the target's Attack Power and increase your Attack Power for 127, and increase your Attack Power by 3% for 30 sec.",
-                  "certainty": "inferred"
-                }
-              ],
               "transcription_note": "The exact Attack Power values are too blurred in the supplied composite to transcribe safely."
             },
             {
