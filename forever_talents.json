@@ -508,17 +508,17 @@
               "ranks": [
                 {
                   "rank": 1,
-                  "description": "Increases your chance to hit with Holy spells by 2%.",
+                  "description": "Increases your chance to hit with Holy spells by 6%.",
                   "certainty": "inferred"
                 },
                 {
                   "rank": 2,
-                  "description": "Increases your chance to hit with Holy spells by 4%.",
+                  "description": "Increases your chance to hit with Holy spells by 12%.",
                   "certainty": "inferred"
                 },
                 {
                   "rank": 3,
-                  "description": "Increases your chance to hit with Holy spells by 6%.",
+                  "description": "Increases your chance to hit with Holy spells by 18%.",
                   "certainty": "inferred"
                 }
               ],
@@ -573,27 +573,27 @@
               "ranks": [
                 {
                   "rank": 1,
-                  "description": "Increases the critical strike chance of your Holy Shock spell by 2%, and all other spells by 1%.",
+                  "description": "Increases the critical strike chance of your Holy Shock spell by 3%, and all other spells by 1%.",
                   "certainty": "inferred"
                 },
                 {
                   "rank": 2,
-                  "description": "Increases the critical strike chance of your Holy Shock spell by 4%, and all other spells by 2%.",
+                  "description": "Increases the critical strike chance of your Holy Shock spell by 6%, and all other spells by 2%.",
                   "certainty": "inferred"
                 },
                 {
                   "rank": 3,
-                  "description": "Increases the critical strike chance of your Holy Shock spell by 6%, and all other spells by 3%.",
+                  "description": "Increases the critical strike chance of your Holy Shock spell by 9%, and all other spells by 3%.",
                   "certainty": "inferred"
                 },
                 {
                   "rank": 4,
-                  "description": "Increases the critical strike chance of your Holy Shock spell by 8%, and all other spells by 4%.",
+                  "description": "Increases the critical strike chance of your Holy Shock spell by 12%, and all other spells by 4%.",
                   "certainty": "inferred"
                 },
                 {
                   "rank": 5,
-                  "description": "Increases the critical strike chance of your Holy Shock spell by 10%, and all other spells by 5%.",
+                  "description": "Increases the critical strike chance of your Holy Shock spell by 15%, and all other spells by 5%.",
                   "certainty": "inferred"
                 }
               ],
@@ -605,7 +605,7 @@
               "row": 7,
               "col": 2,
               "max_rank": 1,
-              "description": "730 Mana. 1.5 sec cast. Enemy: 20 yd range. Friendly: 40 yd range. 8 sec cooldown. Applies Light's Vigil to the target for 30 sec. Your next Holy Shock cast on them triggers no cooldown and causes nearby targets to heal their party for a portion of the Holy damage and healing dealt. You may only have 1 Light's Vigil active per Paladin, per party.",
+              "description": "730 Mana. 1.5 sec cast. Enemy: 20 yd range. Friendly: 40 yd range. 6 sec cooldown. Applies Light's Vigil to the target for 30 sec. Your next Holy Shock cast on them triggers no cooldown and causes nearby targets to heal their party for a portion of the Holy damage and healing dealt. You may only have 1 Light's Vigil active per Paladin, per party.",
               "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
               "confidence": "confirmed",
               "layout_confidence": "confirmed-from-screenshot",
@@ -1268,17 +1268,17 @@
               "ranks": [
                 {
                   "rank": 1,
-                  "description": "Gives your Judgement ability a 33% chance to refund part of the Mana cost of the judged seal.",
+                  "description": "Gives your Judgement ability a 33% chance to refund 20% of the Mana cost of the judged seal.",
                   "certainty": "inferred"
                 },
                 {
                   "rank": 2,
-                  "description": "Gives your Judgement ability a 66% chance to refund part of the Mana cost of the judged seal.",
+                  "description": "Gives your Judgement ability a 66% chance to refund 20% of the Mana cost of the judged seal.",
                   "certainty": "inferred"
                 },
                 {
                   "rank": 3,
-                  "description": "Gives your Judgement ability a 100% chance to refund part of the Mana cost of the judged seal.",
+                  "description": "Gives your Judgement ability a 100% chance to refund 20% of the Mana cost of the judged seal.",
                   "certainty": "inferred"
                 }
               ],
@@ -1392,17 +1392,17 @@
               "ranks": [
                 {
                   "rank": 1,
-                  "description": "Increases the damage you deal with two-handed melee weapons by 2%.",
+                  "description": "Increases the damage you deal with two-handed melee weapons by 3%.",
                   "certainty": "inferred"
                 },
                 {
                   "rank": 2,
-                  "description": "Increases the damage you deal with two-handed melee weapons by 4%.",
+                  "description": "Increases the damage you deal with two-handed melee weapons by 6%.",
                   "certainty": "inferred"
                 },
                 {
                   "rank": 3,
-                  "description": "Increases the damage you deal with two-handed melee weapons by 6%.",
+                  "description": "Increases the damage you deal with two-handed melee weapons by 10%.",
                   "certainty": "inferred"
                 }
               ],
