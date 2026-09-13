@@ -101,7 +101,36 @@
                 }
               ],
               "rank_values_confidence": "inferred"
-            }
+            },
+            {
+              "id": "warrior-arms-deflection",
+              "name": "Deflection",
+              "row": 1,
+              "col": 1,
+              "max_rank": 3,
+              "description": "Reduces the Rage cost of your Heroic Strike ability by 1.",
+              "source": "Public BlizzCon 2026 WoW: Forever Warrior screenshot collection/discussion. Existence is supported publicly; exact Forever tooltip/layout still awaits direct screenshot transcription.",
+              "confidence": "reported",
+              "layout_confidence": "classic-baseline-pending-forever-screenshot",
+              "ranks": [
+                {
+                  "rank": 1,
+                  "description": "Reduces the Rage cost of your Heroic Strike ability by 1.",
+                  "certainty": "inferred"
+                },
+                {
+                  "rank": 2,
+                  "description": "Reduces the Rage cost of your Heroic Strike ability by 2.",
+                  "certainty": "inferred"
+                },
+                {
+                  "rank": 3,
+                  "description": "Reduces the Rage cost of your Heroic Strike ability by 3.",
+                  "certainty": "inferred"
+                }
+              ],
+              "rank_values_confidence": "inferred"
+            },
           ],
           "source_note": "Partial only. Improved Heroic Strike is publicly confirmed to remain in the Forever Arms tree, but this node's precise Forever tooltip/placement still needs the direct screenshot."
         },
@@ -1231,10 +1260,27 @@
               "row": 3,
               "col": 1,
               "max_rank": 3,
-              "description": "Gives your damaging melee attacks a chance to reduce the target's Attack Power and increase your Attack Power for 30 sec.",
+              "description": "Gives your damaging melee attacks a chance to reduce the target's Attack Power and increase your Attack Power for 127, and increase your Attack Power by 1% for 30 sec.",
               "source": "User-provided WoW: Forever BlizzCon 2026 Paladin talent-tree composite screenshot (Holy, Protection, Retribution), supplied 2026-09-12.",
               "confidence": "confirmed",
               "layout_confidence": "confirmed-from-screenshot",
+              "ranks": [
+                {
+                  "rank": 1,
+                  "description": "Gives your damaging melee attacks a chance to reduce the target's Attack Power and increase your Attack Power for 42, and increase your Attack Power by 1% for 30 sec.",
+                  "certainty": "inferred"
+                },
+                {
+                  "rank": 2,
+                  "description": "Gives your damaging melee attacks a chance to reduce the target's Attack Power and increase your Attack Power for 85, and increase your Attack Power by 2% for 30 sec.",
+                  "certainty": "inferred"
+                },
+                {
+                  "rank": 3,
+                  "description": "Gives your damaging melee attacks a chance to reduce the target's Attack Power and increase your Attack Power for 127, and increase your Attack Power by 3% for 30 sec.",
+                  "certainty": "inferred"
+                }
+              ],
               "transcription_note": "The exact Attack Power values are too blurred in the supplied composite to transcribe safely."
             },
             {
