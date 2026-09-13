@@ -65,14 +65,6 @@ button.danger {
 }
 button:disabled { opacity:.45; cursor:not-allowed; }
 main { max-width:1500px; margin:0 auto; padding:16px; }
-.notice {
-  border:1px solid #6b581f;
-  background:#241f10;
-  color:#e8d89b;
-  padding:10px 12px;
-  border-radius:8px;
-  margin-bottom:12px;
-}
 .classbar {
   display:flex;
   gap:7px;
@@ -176,18 +168,6 @@ main { max-width:1500px; margin:0 auto; padding:16px; }
   padding:0 5px;
   font-size:12px;
 }
-.badge {
-  position:absolute;
-  left:6px;
-  bottom:5px;
-  font-size:9px;
-  text-transform:uppercase;
-  letter-spacing:.4px;
-}
-.badge.confirmed { color:#70d77a; }
-.badge.reported { color:#e8c35d; }
-.badge.unverified { color:#ef7d75; }
-.badge.classic { color:#6fb2ff; }
 .tooltip {
   position:fixed;
   display:none;
@@ -203,22 +183,23 @@ main { max-width:1500px; margin:0 auto; padding:16px; }
 .tooltip h3 { margin:0 0 4px; color:#fff; }
 .tooltip .tt-rank { color:#d6b35a; margin-bottom:6px; }
 .tooltip .tt-lock { color:#ff8b84; margin-top:6px; }
-.tooltip .tt-src { color:#8b949e; margin-top:8px; font-size:12px; }
-.research {
-  margin-top:16px;
+
+.certainty {
+  display:inline-block;
+  margin-top:5px;
+  padding:1px 6px;
+  border-radius:999px;
   border:1px solid var(--border);
-  border-radius:10px;
-  background:var(--panel);
-  padding:12px;
+  font-size:10px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.45px;
 }
+.certainty.confirmed { color:#70d77a; }
+.certainty.inferred { color:#e8c35d; }
+.certainty.uncertain { color:#ff8b84; }
+
 .research h2 { margin:0 0 8px; font-size:16px; }
-.fragment {
-  padding:8px 0;
-  border-top:1px solid var(--border);
-}
-.fragment:first-of-type { border-top:0; }
-.fragment strong { color:#f0d78d; }
-.fragment .source { color:var(--muted); font-size:12px; }
 .search { min-width:220px; }
 dialog {
   width:min(1000px,95vw);
@@ -288,9 +269,7 @@ kbd {
 </header>
 
 <main>
-  <div id="datasetNotice" class="notice"></div>
-  <div class="help" style="margin:-4px 0 12px">Static GitHub Pages build. Talent data loads from <code>forever_talents.json</code>.</div>
-  <div id="classbar" class="classbar"></div>
+<div id="classbar" class="classbar"></div>
 
   <div class="stats">
     <label>Level
@@ -306,15 +285,6 @@ kbd {
   </div>
 
   <div id="trees" class="trees"></div>
-
-  <section class="research">
-    <h2>Current Forever research fragments</h2>
-    <div class="help">
-      These notes are deliberately separate from the clickable trees until their
-      exact node position, rank count and prerequisite structure are verified.
-    </div>
-    <div id="fragments"></div>
-  </section>
 </main>
 
 <div id="tooltip" class="tooltip"></div>
@@ -326,7 +296,7 @@ kbd {
   </div>
   <div class="modalbody">
     <p class="help">
-      Edit or paste the JSON dataset below. On GitHub Pages, Apply Locally stores the dataset only in this browser. Use Download JSON if you want to commit the updated dataset back to GitHub. Rows and columns are 1-based and talent ids must be globally unique.
+      Edit or paste the JSON dataset below. Multi-rank talents may use a <code>ranks</code> array with one description and <code>certainty</code> value (<code>confirmed</code>, <code>inferred</code>, or <code>uncertain</code>) per rank; <code>max_rank</code> is then optional. The old <code>max_rank</code> + <code>description</code> format remains supported. On GitHub Pages, Apply Locally stores the dataset only in this browser. Use Download JSON to commit changes back to GitHub.
     </p>
     <div class="toolbar" style="margin-bottom:8px">
       <button id="formatDataBtn">Format JSON</button>
@@ -355,7 +325,7 @@ kbd {
 </dialog>
 
 <script>
-const APP_VERSION = "1.1.0";
+const APP_VERSION = "1.2.2";
 let DATA = null;
 let currentClass = null;
 let build = {};
@@ -438,24 +408,115 @@ function requiredLevel() {
   return first + Math.ceil(spent / ppl) - 1;
 }
 
+function rankEntries(t) {
+  if (!Array.isArray(t.ranks)) {
+    return [];
+  }
+
+  return t.ranks.map((entry, index) => {
+    if (typeof entry === "string") {
+      return {
+        rank: index + 1,
+        description: entry,
+        certainty: "uncertain"
+      };
+    }
+
+    if (entry && typeof entry === "object") {
+      return {
+        rank: Number(entry.rank || index + 1),
+        description: String(entry.description ?? ""),
+        certainty: String(entry.certainty || "uncertain")
+      };
+    }
+
+    return {
+      rank: index + 1,
+      description: "",
+      certainty: "uncertain"
+    };
+  });
+}
+
+function certaintyForRank(t, rank) {
+  const entries = rankEntries(t);
+  const entry = entries.find(item => item.rank === Number(rank));
+
+  if (entry) {
+    return entry.certainty || "uncertain";
+  }
+
+  // Old-format talents do not carry rank-by-rank evidence.
+  return "uncertain";
+}
+
+function certaintyLabel(value) {
+  switch (value) {
+    case "confirmed":
+      return "Confirmed";
+    case "inferred":
+      return "Inferred";
+    default:
+      return "Uncertain";
+  }
+}
+
+
+function maxRankOf(t) {
+  const entries = rankEntries(t);
+
+  if (entries.length) {
+    return entries.length;
+  }
+
+  if (Array.isArray(t.description) && t.description.length) {
+    return t.description.length;
+  }
+
+  return Math.max(1, Number(t.max_rank || 1));
+}
+
 function descFor(t, rank) {
+  const targetRank = Math.max(
+    1,
+    Math.min(maxRankOf(t), Number(rank || 1))
+  );
+
+  const entries = rankEntries(t);
+  if (entries.length) {
+    const exact = entries.find(entry => entry.rank === targetRank);
+    if (exact && exact.description) {
+      return exact.description;
+    }
+
+    const fallback = entries[targetRank - 1];
+    if (fallback && fallback.description) {
+      return fallback.description;
+    }
+
+    return "No description entered for this rank.";
+  }
+
   const description = t.description ?? "";
+
   if (Array.isArray(description)) {
     if (!description.length) {
       return "No description entered yet.";
     }
+
     const index = Math.max(
       0,
-      Math.min(description.length - 1, (rank || 1) - 1)
+      Math.min(description.length - 1, targetRank - 1)
     );
     return description[index];
   }
+
   return description || "No description entered yet.";
 }
 
 function canAdd(t) {
   const rank = rankOf(t.id);
-  const maxRank = Number(t.max_rank || 1);
+  const maxRank = maxRankOf(t);
 
   if (rank >= maxRank) {
     return [false, "Talent is already maxed."];
@@ -479,7 +540,7 @@ function canAdd(t) {
     if (!prerequisite) {
       return [false, `Missing prerequisite data: ${t.requires}`];
     }
-    if (rankOf(prerequisite.id) < Number(prerequisite.max_rank || 1)) {
+    if (rankOf(prerequisite.id) < maxRankOf(prerequisite)) {
       return [false, `Requires ${prerequisite.name} at maximum rank.`];
     }
   }
@@ -498,7 +559,7 @@ function stateIsValid(nextClassBuild) {
 
     for (const t of allTalentsForClass()) {
       const rank = rankOf(t.id);
-      const maxRank = Number(t.max_rank || 1);
+      const maxRank = maxRankOf(t);
 
       if (rank < 0 || rank > maxRank) {
         return false;
@@ -517,7 +578,7 @@ function stateIsValid(nextClassBuild) {
         const prerequisite = findTalent(t.requires);
         if (
           !prerequisite ||
-          rankOf(prerequisite.id) < Number(prerequisite.max_rank || 1)
+          rankOf(prerequisite.id) < maxRankOf(prerequisite)
         ) {
           return false;
         }
@@ -551,7 +612,7 @@ function canRemove(t) {
 
 function addPoint(t, maxOut = false) {
   let changed = false;
-  const attempts = maxOut ? Number(t.max_rank || 1) : 1;
+  const attempts = maxOut ? maxRankOf(t) : 1;
 
   for (let i = 0; i < attempts; i++) {
     const [ok] = canAdd(t);
@@ -769,41 +830,61 @@ function escapeHtml(value) {
 
 function tooltipText(t) {
   const rank = rankOf(t.id);
-  const shownRank = Math.max(
-    1,
-    Math.min(Number(t.max_rank || 1), rank || 1)
-  );
+  const maxRank = maxRankOf(t);
   const [addOk, addWhy] = canAdd(t);
 
+  function rankBlock(label, shownRank) {
+    const certainty = certaintyForRank(t, shownRank);
+    return `
+      <div class="tt-rank">${label}: ${shownRank}/${maxRank}</div>
+      <div>${escapeHtml(descFor(t, shownRank))}</div>
+      <div class="certainty ${escapeHtml(certainty)}">
+        ${escapeHtml(certaintyLabel(certainty))}
+      </div>
+    `;
+  }
+
+  let body = "";
+
+  if (rank <= 0) {
+    body = rankBlock("Next rank", 1);
+  } else {
+    body = rankBlock("Current rank", rank);
+
+    if (rank < maxRank) {
+      body += `<div style="margin-top:10px"></div>`;
+      body += rankBlock("Next rank", rank + 1);
+    }
+  }
+
   let lock = "";
-  if (!addOk && rank < Number(t.max_rank || 1)) {
-    lock = `<div class="tt-lock">${escapeHtml(addWhy)}</div>`;
+
+  if (!addOk && rank < maxRank) {
+    lock = `
+      <div class="tt-lock">
+        ${escapeHtml(addWhy)}
+      </div>
+    `;
   }
 
   let prerequisiteText = "";
+
   if (t.requires) {
     const prerequisite = findTalent(t.requires);
-    prerequisiteText = `<div class="tt-lock">Prerequisite: ${
-      escapeHtml(prerequisite?.name || t.requires)
-    }</div>`;
-  }
 
-  let sourceText = "";
-  if (t.source) {
-    sourceText = `<div class="tt-src">Source: ${
-      escapeHtml(t.source)
-    } · ${escapeHtml(t.confidence || "confirmed")}</div>`;
+    prerequisiteText = `
+      <div class="tt-lock">
+        Prerequisite:
+        ${escapeHtml(prerequisite?.name || t.requires)}
+      </div>
+    `;
   }
 
   return `
     <h3>${escapeHtml(t.name)}</h3>
-    <div class="tt-rank">
-      Rank ${rank}/${Number(t.max_rank || 1)}
-    </div>
-    <div>${escapeHtml(descFor(t, shownRank))}</div>
+    ${body}
     ${prerequisiteText}
     ${lock}
-    ${sourceText}
   `;
 }
 
@@ -884,7 +965,7 @@ function renderTrees() {
     talents.forEach(rawTalent => {
       const t = {...rawTalent, treeIndex};
       const rank = rankOf(t.id);
-      const maxRank = Number(t.max_rank || 1);
+      const maxRank = maxRankOf(t);
       const [addOk] = canAdd(t);
 
       const button = document.createElement("button");
@@ -902,10 +983,13 @@ function renderTrees() {
 
       const searchable = [
         t.name || "",
-        Array.isArray(t.description)
-          ? t.description.join(" ")
-          : t.description || "",
-        t.source || ""
+        Array.isArray(t.ranks)
+          ? rankEntries(t).map(entry => entry.description).join(" ")
+          : (
+              Array.isArray(t.description)
+                ? t.description.join(" ")
+                : t.description || ""
+            )
       ].join(" ").toLowerCase();
 
       if (search && !searchable.includes(search)) {
@@ -917,9 +1001,6 @@ function renderTrees() {
 
       button.innerHTML = `
         <span class="talent-name">${escapeHtml(t.name)}</span>
-        <span class="badge ${escapeHtml(t.confidence || "confirmed")}">
-          ${escapeHtml(t.confidence || "confirmed")}
-        </span>
         <span class="rank">${rank}/${maxRank}</span>
       `;
 
@@ -952,22 +1033,6 @@ function renderTrees() {
   });
 }
 
-function renderFragments() {
-  const container = qs("fragments");
-  const fragments = DATA.known_fragments || [];
-
-  container.innerHTML = fragments.map(fragment => `
-    <div class="fragment">
-      <strong>${escapeHtml(fragment.class || "General")}</strong>
-      <span
-        class="badge ${escapeHtml(fragment.status || "reported")}"
-        style="position:static;margin-left:6px"
-      >${escapeHtml(fragment.status || "reported")}</span>
-      <div>${escapeHtml(fragment.text || "")}</div>
-      <div class="source">${escapeHtml(fragment.source || "")}</div>
-    </div>
-  `).join("");
-}
 
 function renderStats() {
   qs("levelInput").min = String(
@@ -992,14 +1057,9 @@ function render() {
     meta().dataset_version || "unknown version",
     `calculator ${APP_VERSION}`
   ].join(" · ");
-
-  qs("datasetNotice").textContent =
-    meta().notes || "Dataset loaded.";
-
-  renderClassBar();
+renderClassBar();
   renderStats();
   renderTrees();
-  renderFragments();
 }
 
 const LOCAL_DATA_KEY = "wow-forever-talent-calculator:dataset-override";
@@ -1102,8 +1162,79 @@ function validateStaticDataset(object) {
           errors.push(`${talent.id}: col must be an integer >= 1.`);
         }
 
-        if (!Number.isInteger(talent.max_rank) || talent.max_rank < 1) {
-          errors.push(`${talent.id}: max_rank must be an integer >= 1.`);
+        const hasRanks = Array.isArray(talent.ranks) && talent.ranks.length > 0;
+        const hasDescriptionRanks =
+          Array.isArray(talent.description) && talent.description.length > 0;
+
+        if (
+          talent.max_rank !== undefined &&
+          (!Number.isInteger(talent.max_rank) || talent.max_rank < 1)
+        ) {
+          errors.push(`${talent.id}: max_rank must be an integer >= 1 when present.`);
+        }
+
+        if (talent.ranks !== undefined) {
+          if (!Array.isArray(talent.ranks) || talent.ranks.length < 1) {
+            errors.push(`${talent.id}: ranks must be a non-empty array when present.`);
+          } else {
+            talent.ranks.forEach((entry, index) => {
+              if (
+                typeof entry !== "string" &&
+                (!entry || typeof entry !== "object")
+              ) {
+                errors.push(`${talent.id}: ranks[${index}] must be a string or object.`);
+                return;
+              }
+
+              if (entry && typeof entry === "object") {
+                if (
+                  entry.rank !== undefined &&
+                  (!Number.isInteger(entry.rank) || entry.rank < 1)
+                ) {
+                  errors.push(
+                    `${talent.id}: ranks[${index}].rank must be an integer >= 1.`
+                  );
+                }
+
+                if (
+                  entry.description !== undefined &&
+                  typeof entry.description !== "string"
+                ) {
+                  errors.push(
+                    `${talent.id}: ranks[${index}].description must be a string.`
+                  );
+                }
+
+                if (
+                  entry.certainty !== undefined &&
+                  !["confirmed", "inferred", "uncertain"].includes(entry.certainty)
+                ) {
+                  errors.push(
+                    `${talent.id}: ranks[${index}].certainty must be confirmed, inferred, or uncertain.`
+                  );
+                }
+              }
+            });
+
+            if (
+              talent.max_rank !== undefined &&
+              talent.max_rank !== talent.ranks.length
+            ) {
+              errors.push(
+                `${talent.id}: max_rank (${talent.max_rank}) does not match ranks length (${talent.ranks.length}).`
+              );
+            }
+          }
+        }
+
+        if (
+          talent.max_rank === undefined &&
+          !hasRanks &&
+          !hasDescriptionRanks
+        ) {
+          errors.push(
+            `${talent.id}: provide max_rank, a ranks array, or a description array.`
+          );
         }
 
         const pos = `${talent.row}:${talent.col}`;
